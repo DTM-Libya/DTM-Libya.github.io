@@ -84,15 +84,6 @@ a.start{
 			 color:#ff704d;
 			}
 
-.cartodb-timeslider{
-
-        background-color:white;
-        left: auto!important; /*reset/disable the default left position of the timeslider*/
-        right: 20px!important; /*move the box to the right:20px*/
-        bottom: 10px!important; /*move the box to the bottom:300px*/
-        background-color: #4d4d4d!important; /*set the color of the box to black*/
-      border:none!important;
-      } 
     
       li.time {
         
@@ -117,127 +108,12 @@ a.start{
       }
 
   
-.cartodb-legend{
-         left: 20px;
-         bottom: 120px!important;
-         width: 220px;
-         height: auto;
-          background-color: transparent;
-         opacity: 1;
-        
-       } 
 
   
   </style>
   
-  <script>
+
   
-
-
-
-
-
-	
-var map;
-  function init(){
-    // initiate leaflet map
-    map = new L.Map('map', { 
-	  attributionControl: false,
-      scrollWheelZoom: false,
-	  center: [21.09, 92.22],
-      //width: 500,
-	  zoom: 11,
-	 
-	
-	  zoomControl:true
-    })
-	
-	
-	
-
-	
-	
-	 L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png', {
-	    //type: 'sat',
-	   // ext: 'jpg',
-	    opacity: 0.8,
-         attributionControl: false,	   
-        //attribution: '<a href="">&#174 Pablo Gallego / Migrant Report.&#124;&#124;',
-		//subdomains: '1234'
-        }).addTo(map);
-		//http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png
-	//http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
-	//http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png
-	//http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png 
-	//http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png
-	//http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}
-	
-	
-	
-
-//END ANIMATION_TORQUE//
-
-	  cartodb.createLayer(map, {
-	  user_name: 'migrantreport',
-	 
-      type: 'cartodb',  
-	  order: 1,
-	  cartodb_logo: false,
-	sublayers: [{
-    sql: "SELECT * FROM mimu_rakhine_villages",
-    cartocss: '/** simple visualization */  #mimu_rakhine_villages{   marker-fill-opacity: 0.9;   marker-line-color: #FFF;   marker-line-width: 0.5;   marker-line-opacity: 1;   marker-placement: point;   marker-type: ellipse;   marker-width: 5;   marker-fill: #D6301D;   marker-allow-overlap: true; }  #mimu_rakhine_villages::labels {   text-name: [village];   text-face-name: "DejaVu Sans Book";   text-size: 10;   text-label-position-tolerance: 10;   text-fill: #000;   text-halo-fill: #FFF;   text-halo-radius: 1;   text-dy: -5;   text-allow-overlap: false;   text-placement: point;   text-placement-type: simple; } 	'}]
-		})
-		
-	
-
-	   .addTo(map)
-        .on('done', function (layer){
-   
-      });	  
-	
-
-	
-	//ANIMATION_TORQUE(1)//
-	cartodb.createLayer(map, {
-          type: "torque",
-          order: 2,
-		  cartodb_logo: false,
-		  
-          options: {
-		  
-		    time_slider:false,
-            query: "SELECT * FROM rohingya_survey_incidents WHERE incident_date > '2017-08-20T00:00:00Z' and  incident_date < '2017-10-01T00:00:00Z' ",
-            table_name: "rohingya_survey_incidents",
-            user_name: "migrantreport",
-            tile_style: 'Map { -torque-frame-count:32; -torque-animation-duration:10; -torque-time-attribute:"incident_date"; -torque-aggregation-function:"count(cartodb_id)"; -torque-resolution:8; -torque-data-aggregation:cumulative; }  #rohingya_survey_incidents{   image-filters: colorize-alpha(blue, cyan, lightgreen, yellow , orange, red);   marker-file: url(http://s3.amazonaws.com/com.cartodb.assets.static/alphamarker.png);   marker-fill-opacity: 0.4*[value];   marker-width: 45; } #rohingya_survey_incidents[frame-offset=1] {  marker-width:37;  marker-fill-opacity:0.2; }#rohingya_survey_incidents[frame-offset=2] {  marker-width:39;  marker-fill-opacity:0.3; }'
-			}
-	    }).done(function(layer) {
-          map.addLayer(layer);
-        });
-
-
-
-
- // ADD THE REFERENCE OVERLAY (THE TOP OF THE SANDWICH) HERE:
-    /*var topPane = L.DomUtil.create('div', 'leaflet-top-pane', map.getPanes().mapPane);
-        var topLayer = new L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}.png', {
-          maxZoom: 17,
-		  scrollwheel:  false, // Doesn't allow the zoom with scroll wheel
-		  attribution:false,
-		  zoomControl:false
-        }).addTo(map);
-        topPane.appendChild(topLayer.getContainer());
-        topLayer.setZIndex(7);
-
-
- 
-*/
-
-	}
-	 
-	
- 
-</SCRIPT>
 
 
 
@@ -247,27 +123,41 @@ var map;
   
 
    
-	 <div id='map'>
-<!--Legend--> 
-<div style="ti" >ffffff<div>
+	 <div id='map'></div>
+	 
+	 
+	 <script>
 
- <div style="color:black;border: transparent;background-color:transparent;box-shadow: none"  class='cartodb-legend category'>
-  <div style="color:#737373;Font-weight:bold;margin-bottom:5px;font-size:14px;border-bottom: 1px solid grey;text-align:center;left:50%;right:50%">Incidents from Aug. 25 to Oct. 29 </div>
-
-<
-<ul  >
-	<li style="text-transform: capitalize;font-size:12px; line-height:10px;margin-bottom:12px;" >
-		<div style="background-size:80%; height:10px;"><img src="http://migrantreport.org/wp-content/uploads/heat_legend-1.png"  style="width:30; height:20;background:transparent;border: 0px solid grey;font-size:13px;color:white;bottom:80px;right:20px;line-height: 40%;padding-left:0px;text-align: center"><span> Areas afected</span></div>
-	</li>
-    <br>
+      function main() {
+        
+        cartodb.createVis('map', 'https://migrantreport.carto.com/api/v2/viz/0978f8c6-aa58-4723-a7a0-ba14e08eee99/viz.json', { time_slider: false });
+      }
+      window.onload = main;
+  
 	
-	<li style="text-transform: capitalize;font-size:12px;" >
-		<div class="bullet" style="text-transform: lowercase; background-size:50%; background: #D6301D; height:0.5px;width:0.5px;margin-left:10px"></div> Villages in Rakhine
-	</li>
+ /*
+https://migrantreport.carto.com/api/v2/viz/627dcff7-c706-4b20-99d3-204979841df3/viz.json
+	 cartodb.createLayer(map, {
+	  user_name: 'migrantreport',
+	 
+      type: 'cartodb',  
+	  order: 1,
+	  cartodb_logo: false,
+	sublayers: [{
+    sql: "SELECT * FROM mimu_rakhine_villages",
+    cartocss: ' #mimu_rakhine_villages{   marker-fill-opacity: 0.9;   marker-line-color: #FFF;   marker-line-width: 0.5;   marker-line-opacity: 1;   marker-placement: point;   marker-type: ellipse;   marker-width: 1;   marker-fill: #D6301D;   marker-allow-overlap: true; }  #mimu_rakhine_villages::labels {   text-name: [village];   text-face-name: "DejaVu Sans Book";   text-size: 10;   text-label-position-tolerance: 10;   text-fill: #000;   text-halo-fill: #FFF;   text-halo-radius: 1;   text-dy: -5;   text-allow-overlap: false;   text-placement: point;   text-placement-type: simple; } 	'}]
+		})
+		
 	
-</ul>
 
-</div>		
+	   .addTo(map)
+        .on('done', function (layer){
+   
+      });
+
+*/
+</SCRIPT>
+	
 </div>
   
   </body>
