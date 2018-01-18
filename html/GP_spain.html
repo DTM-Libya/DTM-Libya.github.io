@@ -1,0 +1,326 @@
+<html>
+
+<head>
+  
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+	<script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+	<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+
+</head>
+
+  <style>
+    html, body {width:100%; height:100%; padding: 0; margin: 0;font-family: "Lato",sans-serif;}
+    #map { width: 100%; height:100%; background: black;}
+   
+	 .cartodb-timeslider{ display: none!important; }    
+        
+	.active{  
+   color:#DC0000 !important;
+}
+
+  
+   .leaflet-container .leaflet-control-attribution{
+      color: grey; -> change color of text
+      background-color: transparent;
+
+    }
+    .leaflet-container .leaflet-control-attribution a{
+      color: grey; -> change the color of the hyperlinks
+      
+    }
+	
+	a {
+		color: #0254EB
+	}
+	a:visited {
+		color: #00aaff
+	}
+	a.morelink {
+		text-decoration:none;
+		outline: none;
+	}
+	.morecontent span {
+		display: none;
+	}
+	.comment {
+		width: 400px;
+		
+		margin: 10px;
+	}
+	
+
+
+  </style>
+  
+  <body>
+  
+	<div id='map'></div>
+	
+	<script type="infowindow/html" id="infowindow_template"></script>
+	
+	
+
+  
+  <script>
+ 
+
+//INFO-WINDOW_CHART//
+
+      var INFOWINDOW_TEMPLATE = [
+        '<div style="background:white; opacity:0.9" class="cartodb-popup v2">',
+        '  <a href="#close" class="cartodb-popup-close-button close">x</a>',
+        '   <div class="cartodb-popup-content-wrapper">',
+        '     <div class="cartodb-popup-content">',
+        '     <div style="text-align: center;font-size:11px;color:grey;font-weight:bold">Arrivals into {{a_location}}: <p style="font-weight:bold;color:#ff0000;display:inline">2017</p> /<p style="font-weight:bold;color:#6699ff;display:inline">2016</p>  / <p style="font-weight:bold;color:#ffcc99;display: inline;">2015</p> / <p style="font-weight:bold;color:#00cc99;display: inline;">2014</p></div>',
+		
+		'       <div id="chart_div5">',
+        '       <script>',
+        '         draw_chart5([{{content.data.jan_14}},{{content.data.feb_14}},{{content.data.mar_14}},{{content.data.apr_14}},{{content.data.may_14}}, {{content.data.jun_14}},{{content.data.jul_14}}, {{content.data.aug_14}},{{content.data.sep_14}}, {{content.data.oct_14}},{{content.data.nov_14}},{{content.data.dec_14}},{{content.data.jan_15}},{{content.data.feb_15}},{{content.data.mar_15}},{{content.data.apr_15}},{{content.data.may_15}},{{content.data.jun_15}},{{content.data.jul_15}},{{content.data.aug_15}},{{content.data.sep_15}},{{content.data.oct_15}},{{content.data.nov_15}},{{content.data.dec_15}},{{content.data.jan_16}},{{content.data.feb_16}},{{content.data.mar_16}},{{content.data.apr_16}},{{content.data.may_16}},{{content.data.jun_16}},{{content.data.jul_16}},{{content.data.aug_16}},{{content.data.sep_16}},{{content.data.oct_16}},{{content.data.nov_16}},{{content.data.dec_16}},{{content.data.jan_17}},{{content.data.feb_17}},{{content.data.mar_17}},{{content.data.apr_17}},{{content.data.may_17}}])',
+        '       </scr' + 'ipt>',
+        '       </div>',
+		'      <p style="padding-left:14px;color:grey;font-size:10">Source: UNHCR Spain | &#128336; Last Updated: 1 June 2017</p>',
+        '     </div>',
+        '   </div>',
+        '   <div class="cartodb-popup-tip-container"></div>',
+        '</div>'].join('');
+
+  ///INTERACTIVE_ARRIVALS_REGION/// 
+  
+  // load visualization library from google
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      function draw_chart5(data, a_location) {
+	       
+	  var data = google.visualization.arrayToDataTable([
+    
+      ['Month','2014','2015','2016','2017'],
+        ['Jan', data[0],data[12],data[24],data[36]],
+        ['Feb', data[1],data[13],data[25],data[37]],
+        ['Mar', data[2],data[14],data[26],data[38]],
+        ['Apr', data[3],data[15],data[27],data[39]],
+		['May', data[4],data[16],data[28],data[40]],
+		['Jun', data[5],data[17],data[29],'null'],
+		['Jul', data[6],data[18],data[30],'null'],
+		['Aug', data[7],data[19],data[31],'null'],
+		['Sep', data[8],data[20],data[32],'null'],
+		['Oct', data[9],data[21],data[33],'null'],
+		['Nov', data[10],data[22],data[34],'null'],
+		['Dec', data[11],data[23],data[35],'null'],
+    ]);
+    
+		
+	
+    var options = {
+           // title: a_location + ' population',
+            legend: { position: "none" },			
+			chartArea:{left:40,top:15,width:'60%',height:'60%'},
+            opacity: 0.3,
+            width:360,
+			height: 130,
+			backgroundColor:'transparent',
+			colors:['#00cc99','#ffcc99','#6699ff','#ff0000'],
+			animation:{	duration: 1000,	easing: 'out',},
+			//curveType: 'function',
+			theme: 'material',
+			//curveType: 'function',
+			//theme: 'material',
+			 
+			 series: {
+           
+              
+			  2: { lineWidth: 2 },
+			  1: { lineWidth: 1 },
+			  0: { lineWidth: 1 },
+          },
+		    series: {
+           
+              0: { lineDashStyle: [2, 2] },
+              1: { lineDashStyle: [2, 2] },
+			  2: { lineDashStyle: [2, 2] },
+          },
+		  
+		
+			hAxis: {
+			//title: 'Border-Crossings',
+			textStyle:{fontSize: '9', paddingRight: '0',marginRight: '0',color:'black'},
+            direction:1,
+            slantedText:true,
+            slantedTextAngle:45,
+			animation: {duration: 1000},
+			
+			
+            },
+           
+             vAxis: {
+            // set these values to make the initial animation smoother
+            //title: 'Border-Crossings',
+			minValue: 0,
+            maxValue: 100,
+			format: 'short',
+			gridlines: {color: '#ccc'},
+			textStyle: {fontSize: 10,color:'black'},
+        }
+			
+			
+			
+          };
+          var chart = new google.visualization.AreaChart(document.getElementById('chart_div5'));
+          chart.draw(data, options);
+    };
+  
+   /// END INTERACTIVE_ARRIVALS_REGION/// 
+
+  
+  function main() {
+
+      var map = new L.Map('map', { 
+	  scrollWheelZoom: false,
+	  attributionControl: false,
+      center: [33, -4.075878],
+      width: 500,
+	  zoom: 5,
+	  minZoom: 4,
+	  zoomControl:false
+    });
+	L.control.zoom({
+     position:'topright'
+	}).addTo(map);
+
+
+	
+
+	
+	
+	 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+      
+    }).addTo(map);
+	//http://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}
+	//http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png
+     //http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
+     //http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png  
+
+		/*/torque //
+		
+	cartodb.createLayer(map, {
+          type: "torque",
+          order: 1,
+		  cartodb_logo: false,
+		  	  	  
+		 
+          options: {
+		   	
+		   
+            query: "SELECT * FROM torque_focus where name='Zawiya'",
+            table_name: "torque_focus",
+            user_name: "migrantreport",
+            tile_style: 'Map { -torque-frame-count:256; -torque-animation-duration:3; -torque-time-attribute:"cartodb_id"; -torque-data-aggregation:linear; -torque-resolution:2; -torque-data-aggregation:linear; } #torque_focus{   comp-op: source-over;   marker-fill-opacity: 1;   marker-line-color: #850200;   marker-line-width: 0;   marker-line-opacity: 1;   marker-type: ellipse;   marker-width: 5;   marker-fill: #D6301D; } #torque_focus[frame-offset=1] {  marker-width:15;  marker-fill-opacity:0.5; }#torque_focus[frame-offset=2] {  marker-width:20;  marker-fill-opacity:0.25; }#torque_focus[frame-offset=3] {  marker-width:25;  marker-fill-opacity:0.16666666666666666; }#torque_focus[frame-offset=4] {  marker-width:20;  marker-fill-opacity:0.125;}#migration_hubs::labels [name="Zawiya"] {   text-name: [description];   text-face-name: "DejaVu Sans Book";   text-size: 9;   text-label-position-tolerance: 100;   text-fill: red;text-dy: 100;   text-dx: 0;   text-allow-overlap: true;   text-placement: point;   text-placement-type: simple;text-wrap-width: 150; text-wrap-before: true;} '
+			}
+        })
+		.done(function(layer) {
+		 map.addLayer(layer);
+        });
+		//END torque*/
+ //ANIMATION_TORQUE(1)//
+	cartodb.createLayer(map, {
+          type: "torque",
+          order: 2,
+		  cartodb_logo: false,
+		  
+          options: {
+		  
+		    time_slider:false,
+            query: "SELECT * FROM gp_routes_anim_all where route='Central-B' or route='Central-A'or route='Western' or route='Western-African'",
+            table_name: "gp_routes_anim_all",
+            user_name: "migrantreport",
+            tile_style: 'Map {-torque-frame-count:256;-torque-animation-duration:8;-torque-time-attribute:"id";-torque-aggregation-function:"count(cartodb_id)";-torque-resolution:2;-torque-data-aggregation:cumulative;}#gp_routes_anim_all{ comp-op: lighter;  marker-fill-opacity: 0.7; marker-line-color: #FFF; marker-line-width: 0; marker-line-opacity: 1; marker-type: ellipse; marker-width: 1; marker-fill: white;}#gp_routes_anim_all[frame-offset=1] {marker-width:1;marker-fill-opacity:0.1; }#gp_routes_anim_all[frame-offset=2] {marker-width:4; marker-fill-opacity:0.1; }'  
+			
+			}
+	    }).done(function(layer) {
+          map.addLayer(layer);
+        });
+
+	//END ANIMATION_TORQUE//
+	
+
+//hubs//
+cartodb.createLayer(map, {
+  user_name: 'migrantreport',
+  type: 'cartodb',
+  cartodb_logo: false,
+  sublayers: [{
+    sql: "SELECT * FROM key_hubs where name <> 'Malta ( MOAS headquarters)'",
+    cartocss: '#key_hubs [name="Ceuta"],[name="Melilla"],[name="Canary Islands"],[name="Rabat"],[name="Canary Islands"],[name="Nouadhibou"],[name="Agadir"]{   marker-file: url(http://com.cartodb.users-assets.production.s3.amazonaws.com/pin-maps/pins54.svg);   marker-fill-opacity: 1;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-type: ellipse;   marker-width: 10;   marker-fill: #F84F40;   marker-allow-overlap: true; }  #key_hubs::labels [name="Ceuta"],[name="Melilla"],[name="Canary Islands"],[name="Rabat"],[name="Canary Islands"],[name="Nouadhibou"],[name="Agadir"]{   text-name: [name];   text-face-name: "DejaVu Sans Book";   text-size: 10;   text-label-position-tolerance: 10;   text-fill: #FFFFFF;    text-dy: 10;   text-allow-overlap: true;   text-placement: point;   text-placement-type: simple; }'
+
+
+	}]
+})
+.addTo(map)
+//end hubs//
+ 
+  
+//ARRIVALS(4)//
+	 cartodb.createLayer(map, 'https://migrantreport.carto.com/api/v2/viz/811d05da-abc8-4427-b113-b7648d7ea270/viz.json', {cartodb_logo: false,legend:false})
+         .addTo(map)
+		 
+    .on('done', function(layer) {
+     // ge       t sublayer 0 and set the infowindow template
+            var sublayer = layer.getSubLayer(0);
+            sublayer.infowindow.set({
+              template:   INFOWINDOW_TEMPLATE,
+              sanitizeTemplate: false,
+              width:      290,
+              maxHeight:  270
+            });
+          }).on('error', function() {
+            console.log("some error occurred");
+          });
+   
+
+
+
+
+
+   // add infowindow 
+    /*infowindow cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['updated'])
+     });*/
+	 
+//END ARRIVALS//
+
+
+//Routes//
+cartodb.createLayer(map, {
+  user_name: 'migrantreport',
+  type: 'cartodb',
+  cartodb_logo: false,
+  sublayers: [{
+    sql: "SELECT * FROM all_routes",
+    cartocss: '#all_routes {  line-color: white;  line-width: 2;  line-opacity: 0.1;  line-dasharray: 2,2;} #all_routes [type="g1"] {  line-color: white;  line-width: 2;  line-opacity: 0.2; }'
+	}]
+})
+.addTo(map)
+//end routes//
+
+
+ 
+
+
+		  
+//TOGGLE FUNCION//
+  $(document).ready(function() {
+		$(".button").click(function (e) {
+		e.preventDefault();
+		$('[class^=TAB]').hide();          
+		$('.'+this.id).slideToggle(800);
+		  
+	   });
+	   });    	  
+//FONISHED TOGGLE FUNCION// 
+}  
+window.onload = main; 
+</script>
+</body>
+</html>
