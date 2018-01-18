@@ -1,79 +1,166 @@
-<!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.14/themes/css/cartodb.css" />
-    </head>
-    <body>
-      <div id="map"></div>
-      <aside class="layers">
-      <h2>Layers</h2>
-      <ul>
-        <li class="layer">
-            <input type="checkbox" id="nucleos" name="layer">
-            <label for="nucleos">Núcleos</label>
-        </li>
-        <li class="layer">
-            <input type="checkbox" id="rios" name="layer">
-            <label for="rios">Ríos</label>
-        </li>
-        <li class="layer">
-            <input type="checkbox" id="aloja" name="layer">
-            <label for="aloja">Alojamientos</label>
-        </li>
-      </ul>
-      </aside>
-      <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.14/cartodb.js"></script>
-      <script>
-      $( document ).ready(function() {
-        //Create the leaflet map
-        var map = L.map('map', {
-            zoomControl: true,
-            center: [39.583,2.670],
-            zoom: 12
-        });
-        var basemap = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-        }).addTo(map);
-        // Layers definition
-        var layers = {
-          'nucleos': {
-            sql: 'SELECT * FROM nucleos_pobl_btn100',
-            cartocss: '#layer{polygon-fill: #D6301D;polygon-opacity: 0.7;}'
-          },
-          'rios': {
-            sql: 'SELECT * FROM rios_btn25',
-            cartocss: '#rios_btn25{line-color: #2E5387;line-width: 2;line-opacity: 0.7;}'
-          },
-          'aloja': {
-            sql: 'SELECT * FROM aloj_ocio_btn100',
-            cartocss: '#aloj_ocio_btn100{marker-fill-opacity: 0.9; marker-line-color: #FFF; marker-line-width: 1.5; marker-width: 10; marker-fill: #3B007F; }'
-          }
-        }
-        // Empty layer
-        cartodb.createLayer(map,{
-            user_name: 'ignspaintest',
-            type: 'cartodb',
-            sublayers: []
-          })
-          .addTo(map)
-          .done(function(layer){
-            // When the layers inputs change fire this
-            $("input[name='layer']").change(function(){
-              // Clear the sublayers
-              layer.getSubLayers().forEach(function(sublayer){sublayer.remove()});
-              // For every check activated, add a sublayer
-              $.each($("input[name='layer']:checked"), function(){
-                  layer.createSubLayer(layers[$(this).attr("id")]);
-              });
-            });
-        });
+<head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+	<script src='https://cartodb-libs.global.ssl.fastly.net/torque.full.js'></script>
+	<link rel='stylesheet' id='ls-google-fonts-css' href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+  
+  
+</head>  
+  <style>
+    html{width:100%; height:100%;padding:0px;margin:0px}
+    body {
+	margin:0px;
+    font-family: "Lato",sans-serif;
+    font-size: 17px;
+    font-weight: 300;}
+	
+	#map { width: 100%; height:100%; background: black;}
+   
+   
+	 
+	
+		  
+	 .leaflet-container .leaflet-control-attribution{
+      color: grey; -> change color of text
+      background-color: transparent;
+
+    }
+    .leaflet-container .leaflet-control-attribution a{
+      color: grey; -> change the color of the hyperlinks
+      
+    }
+ 	
+
+	/* Hide attribution control, beware with data license!!*/
+.leaflet-control-attribution,
+div#cartodb-gmaps-attribution {
+  display: none;
+}	
+ 
+@media screen and (max-width: 501px) {
+  .symbol{ display: none; }   /* hide it elsewhere */
+} 
+
+.landing {z-index:1000; position:absolute;top:50px;color:white;text-align:center;width:100%}
+
+@media screen and (max-width: 501px) {
+  .landing{top:0px;margin:15px;}   /* hide it elsewhere */
+} 
+
+
+
+.titles {font-size:24px;font-weight:bold;text-align:center;opacity:1;text-shadow: 2px 2px 3px black;}
+
+
+
+.disclaimer {font-size:17px;opacity:1; margin-top:0px;text-align:center}
+@media screen and (max-width: 501px) {
+  .disclaimer{font-size:20px}   /* hide it elsewhere */
+} 
+
+a.start{
+			 text-align:center;
+			 border: 1px solid white;
+			 opacity:1;
+	     	text-decoration: none;
+			 background:transparent;
+		     text-shadow:none;
+			 padding:5px 50px 5px 50px;
+			
+			 color:white
+			}
+	a.start:hover{
+			 
+			 border: 2px solid #ff704d;
+			 opacity:1;
+			
+		     text-shadow:none;
+			
+			 color:#ff704d;
+			}
+
+    
+      li.time {
+        
+        top:-5px;
+        border:none!important;
+        z-index:10;
+		
+      }
+	  
+
+
+      li.controls {
+        color:black;
+      margin-right:0px;
+      border:none!important;
+      }
+
+      li.time.p {
+        color:red;
+        margin-left:0px;
+	
+      }
+
+  
+
+  
+  </style>
+  
+
+  
+
+
+
+
+
+<body onload="init()">
+  
+
+   
+	 <div id='map'></div>
+	 
+	 
+	 <script>
+
+      function main() {
+        
+        cartodb.createVis('map', 'https://migrantreport.carto.com/api/v2/viz/627dcff7-c706-4b20-99d3-204979841df3/viz.json', { time_slider: false });
+      }
+      window.onload = main;
+  
+	
+ /*
+https://migrantreport.carto.com/api/v2/viz/627dcff7-c706-4b20-99d3-204979841df3/viz.json
+	 cartodb.createLayer(map, {
+	  user_name: 'migrantreport',
+	 
+      type: 'cartodb',  
+	  order: 1,
+	  cartodb_logo: false,
+	sublayers: [{
+    sql: "SELECT * FROM mimu_rakhine_villages",
+    cartocss: ' #mimu_rakhine_villages{   marker-fill-opacity: 0.9;   marker-line-color: #FFF;   marker-line-width: 0.5;   marker-line-opacity: 1;   marker-placement: point;   marker-type: ellipse;   marker-width: 1;   marker-fill: #D6301D;   marker-allow-overlap: true; }  #mimu_rakhine_villages::labels {   text-name: [village];   text-face-name: "DejaVu Sans Book";   text-size: 10;   text-label-position-tolerance: 10;   text-fill: #000;   text-halo-fill: #FFF;   text-halo-radius: 1;   text-dy: -5;   text-allow-overlap: false;   text-placement: point;   text-placement-type: simple; } 	'}]
+		})
+		
+	
+
+	   .addTo(map)
+        .on('done', function (layer){
+   
       });
-      </script>
-    </body>
+
+*/
+</SCRIPT>
+	
+</div>
+  
+  </body>
+  
+		
 </html>
