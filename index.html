@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"></script>
+
+</head>
+<style>
+#map { position: relative; height: 500px }
+
+ul.nav li:hover { background-color:#ccc  !important; }
+</style>
+<body>
+
+<nav style="margin-bottom:0px" class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      		 <a class="navbar-brand js-scroll-trigger" href="http://xchange.org" style="padding-top:5px;color:#ccc;margin-left:20px;text-align:center;font-size:11px;float:left" ><img src="http://localhost/img/IOM_the_Migration_Agency_BleuTransparant.png" alt="migrnats" style=";margin-top:0px; background:transparent; z-index:10;width:110px"></a>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+	    
+        <li class="active"><a href="#" id="map4">Migrants </a></li>
+         <li class=""><a href="#" id="map5">IDP's<span class="sr-only">(current)</span></a></li>
+		 <li class=""><a href="#" id="">Detention centers<span class="sr-only">(current)</span></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="map1">Migrants</a></li>
+            <li><a href="#" id="map2">IDP's</a></li>
+            <li><a href="#" id="map3">Detention Centers</a></li>
+          
+          </ul>
+        </li>
+		 
+		
+		
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  
+
+     <div id="map" class="top_map"></div>		
+
+<div class="container">
+
+<div style="color:white" id="narrative" ></div>
+  
+</div>	 
+    <script>
+      
+      var map;
+      function main() {	
+        //loadMaps events
+        $('#map1').click(function(){
+            $('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/GP_Global.html" frameborder="0" scrolling="no"></iframe>');            			$('#narrative').load( "html/DTM_narrative_migrants.html" );
+        });
+        $('#map2').click(function(){
+            $('#map').html('<iframe width="100%" height="400" frameborder="0" src="http://iom.maps.arcgis.com/apps/webappviewer/index.html?id=777bb88db51940efa2eda7a6dbdc6fb2     "></iframe>');						$('#narrative').load( "http://localhost/iom/DTM_narrative_idp.html" );
+        });
+        $('#map3').click(function(){
+            $('#map').html('<iframe width="100%" height="100%" frameborder="0" src="http://xchange.org/map/GP_Greece.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://localhost/iom/DTM_narrative_detention.html" );
+        });
+		 $('#map4').click(function(){
+			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="http://xchange.org/map/GP_spain.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://xchange.org/map/html/GP_narrative_spain.html" );
+        }); 
+		 $('#map5').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="http://xchange.org/map/GP_deaths_01.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://xchange.org/map/html/GP_narrative_death.html" );        }); 		
+
+        // Click on first button
+        $('#map1').click();
+      }
+
+      $('.btn-primary.btn-outline').click(function() {
+        $('.btn-primary.btn-outline').removeClass('selected');
+        $(this).addClass('selected');
+      });
+
+      window.onload = main;
+	  
+	 
+	  
+	  
+    </script>
+</body>
+</html>
