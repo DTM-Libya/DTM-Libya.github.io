@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>DTM portal</title>
+  <title>IOM DTM</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,37 +12,68 @@
 
 </head>
 <style>
-#map { position: relative; height: 50% }
+#map { position: relative; height: 100% }
+
 html {
   height: 100%;
 }
 body {
   height: 100%;
 }
-ul.nav li:hover { background-color:#ccc  !important; }
+ul.nav li:hover { background-color:#275a86 ;color:white !important; }
 
 sections {color:blue}
 .btn-outline {}
-.btn-primary.btn-outline { background-color:transparent;border:none}
-.btn-outline:hover{opacity: 1;}
-.btn-primary.btn-outline.selected{ border: 0px solid grey;opacity: 1;font-weight:bold; border-radius: 0px; box-shadow: 0 0 10px rgba(0, 0, 0, .8);}    :#3f3f41		}				
- 
+.btn-primary.btn-outline { background-color:transparent;border:none; text-align:left}
+.btn-outline:hover{opacity: 1;border-radius: 0px;}
+.btn-primary.btn-outline.selected{font-weight:bold; color:black; border-radius: 3px;  }				
+
+.navbar-header {margin-right: 100px;}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #555;
+    background-color: #336188;
+}
+
+
+
+
+@media (max-width:767px){.navbar-default .navbar-nav 
+.open .dropdown-menu>li>a{color:white}.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus,.navbar-default .navbar-nav .open 
+.dropdown-menu>li>a:hover{color:white;background-color:transparent}.navbar-default .navbar-nav .open .dropdown-menu>.active>a,.navbar-default .navbar-nav 
+.open 
+.dropdown-menu>.active>a:focus,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover{color:white;background-color:#e7e7e7}.navbar-default 
+.navbar-nav .open .dropdown-menu>.disabled>a,.navbar-default .navbar-nav .open .dropdown-menu>.disabled>a:focus,.navbar-default .navbar-nav .open 
+.dropdown-menu>.disabled>a:hover{color:#ccc;background-color:transparent}}
+
+
+::-webkit-scrollbar {display:none;}  
+
+
+
 </style>
 
 
 <body>
 
-<nav style="margin-bottom:0px" class="navbar navbar-default">
-  <div class="container-fluid">
+<nav  style="background-color: #3473a9; border-color: white; opacity: 1; border-radius: 0px;border:0px" class="navbar navbar-default">
+   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div  class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      		 <a class="navbar-brand js-scroll-trigger"  style="padding-left: 0px;padding-top:5px;color:#ccc;margin-left:0px;text-align:center;font-size:11px;float:left" ><img src="http://www.globaldtm.info/wp-content/uploads/2016/06/dtm_logo_2-Copy.png" alt="migrnats" style=";opacity:1;margin-top:0px; background:transparent; z-index:10;width:60%"></a>
+     
+      		<div class="navbar-brand js-scroll-trigger"  style="padding: 4px 0px 0px 0px;color:#ccc;margin-left:0px;text-align:center;font-size:11px;float:left" ><img src="https://displacement.iom.int/sites/all/themes/iom2015/images/dtm-logo.png" alt="migrnats" style=";padding:0px;opacity:1;margin-right:0px; background:transparent; z-index:10;width:100%;"></div><span style="font-size:15px;padding:0px;margin-right:70px;margin-left:0px;line-height:50px;color:white"><span style="font-weight:bold;">Libya</span> | Portal<span>
 
     </div>
 
@@ -50,7 +81,7 @@ sections {color:blue}
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 	    <li class="dropdown">
-          <a style="color:#153f88"  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
+          <a style="color:white"  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Methodology</a></li>
             <li><a href="#">Disclaimer</a></li>
@@ -59,15 +90,30 @@ sections {color:blue}
             <li><a href="#">Data Credibility</a></li>
           </ul>
         </li>
-        <li><a href="#"  style="color:#153f88" class="btn btn-primary btn-outline" id="map1">Migrants </a></li>
-         <li class=""><a style="color:#153f88" class="btn btn-primary btn-outline" href="#" id="map3">IDP's / Returnees</a></li>
-		 <li class=""><a style="color:#153f88" class="btn btn-primary btn-outline" href="#" id="map4">Detention centers</a></li>
-        <li class="dropdown">
-         <!-- <a style="color:#153f88" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>-->
+        <!--<li><a href="#"  style="color:#153f88" class="btn btn-primary btn-outline" id="map4">Migrants </a></li>
+         <li class=""><a style="color:#153f88" class="btn btn-primary btn-outline" href="#" id="map5">IDP's / Returnees</a></li>
+		 <li class=""><a style="color:#153f88" class="btn btn-primary btn-outline" href="#" id="map2">Detention centers</a></li>
+		 <li class=""><a style="color:#153f88" class="btn btn-primary btn-outline" href="#" id="map3">libya</a></li>
+        -->
+		<li style="margin-left :50px" class="dropdown">
+    <a style="color:white;font-weight:bold" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Migrants<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a class="btn btn-primary btn-outline" href="#" id="map1">Migrants</a></li>
-            <li><a class="btn btn-primary btn-outline" href="#" id="map2">IDP's</a></li>
-            <li><a class="btn btn-primary btn-outline" href="#" id="map3">Detention Centers</a></li>
+            <li><a class="btn btn-primary btn-outline" href="#" id="map1">Migrants & Demographics</a></li>
+            <li><a class="btn btn-primary btn-outline" href="#" id="map2">Migrant Flows</a></li>
+            <li><a class="btn btn-primary btn-outline" href="#" id="map9">Detention Centers</a></li>
+			<li><a class="btn btn-primary btn-outline" href="#" id="map6">SAR operations</a></li>
+			
+          
+          </ul>
+        </li>
+		<li class="dropdown">
+    <a style="color:white;font-weight:bold" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IDP's / Returnees<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="btn btn-primary btn-outline" href="#" id="map1">IDP: Clusters & Demographics</a></li>
+            <li><a class="btn btn-primary btn-outline" href="#" id="map8">Returnee: Clusters & Demographics</a></li>
+            <li><a class="btn btn-primary btn-outline" href="#" id="map7">Multisectorial Data</a></li>
+			<li><a class="btn btn-primary btn-outline" href="#" id="map4">SAR</a></li>
+			
           
           </ul>
         </li>
@@ -78,7 +124,7 @@ sections {color:blue}
       
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a style="color:#153f88" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a>
+          <a style="color:white;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#" id="map1">Raw data (CSV) </a></li>
             <li><a href="#" id="map2">IDP & Returnee Report (PDF)</a></li>
@@ -87,41 +133,50 @@ sections {color:blue}
           </ul>
         </li>
         
-		 <li><a style="color:#153f88"  class="nav-link js-scroll-trigger" href="#contactus">Contact Us</a></li>
+		 <li><a style="color:white;font-weight:bold"  class="nav-link js-scroll-trigger" href="#contactus">Contact Us</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
   
 
-<div id="map" class="top_map"></div>	 	
 
-<div class="container">
+<div id="map" class="top_map"></div>	
+ 
+		
 
-<div style="color:white" id="narrative" ></div>
-  
-</div>	 
+<!--<div class="container"> 	 
+<div style="color:white" id="narrative" ></div>--> 
+ 
+
     <script>
       
       var map;
-      function main() {	
+      function main() {
         //loadMaps events
         $('#map1').click(function(){
-            $('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/example.html" frameborder="0" scrolling="no"></iframe>');            			$('#narrative').load( "http://localhost/iom/DTM_narrative_migrants.html" );
+            $('#map').html('<iframe width="100%" height="100%"   src="html/DTM_migrants_demographics.html" frameborder="0" scrolling="yes"></iframe>');
         });
         $('#map2').click(function(){
-            $('#map').html('<iframe width="100%" height="100%" frameborder="0" src="http://iom.maps.arcgis.com/apps/webappviewer/index.html?id=777bb88db51940efa2eda7a6dbdc6fb2     "></iframe>');						$('#narrative').load( "http://localhost/iom/DTM_narrative_idp.html" );
+            $('#map').html('<iframe width="100%" height="100%" frameborder="0" src="http://iom.maps.arcgis.com/apps/webappviewer/index.html?id=a448e17353084a479968c52f8aa4c260"></iframe>');
         });
         $('#map3').click(function(){
-            $('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/GP_Greece.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://localhost/iom/DTM_narrative_detention.html" );
+            $('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/GP_Greece.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "html/DTM_narrative_detention.html" );
         });
 		 $('#map4').click(function(){
-			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/GP_spain.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://xchange.org/map/html/GP_narrative_spain.html" );
+			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/DTM_migrants_sar.html" frameborder="0" scrolling="yes"></iframe>');
         }); 
 		 $('#map5').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/GP_deaths_01.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://xchange.org/map/html/GP_narrative_death.html" );        }); 		
 
-        
+        $('#map6').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/GP_Global.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://xchange.org/map/html/GP_narrative_death.html" );        }); 		
+
+		 $('#map7').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="https://app.powerbi.com/view?r=eyJrIjoiYTllZmM5ZDAtNmYwMi00M2I1LTg2NmUtMTNhNjJkZWU4MjcyIiwidCI6ImYwNjA4MDQxLTU1ZGMtNDJjNS1iY2FkLTUzNjIzZTFhY2FlNCIsImMiOjh9" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "http://xchange.org/map/html/GP_narrative_death.html" );        }); 		
+
 		
+		 $('#map8').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/DTM_contactus.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "html/DTM_narrative_idp.html" );        }); 		
+
+		 $('#map9').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/DTM_world.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "html/DTM_narrative_idp.html" );        }); 		
+
 		
 		
 		// Click on first button
@@ -139,7 +194,7 @@ sections {color:blue}
 	  
 	  
     </script>
-	<!--Contact form -->
+	<!--Contact form 
 	
 	<section id="contactus" class="download-section content-section text-center">
       <div class="container">
@@ -197,6 +252,7 @@ sections {color:blue}
 	      </div>
 	  </div>
     </section>
+	<!--
 	 <div style="padding:25px;text-align:center;font-size:15px" class="col-lg-12 mx-auto">Copyright &copy; 2018  International Organization for Migration</div>
 	
 <!--end Contact form -->
