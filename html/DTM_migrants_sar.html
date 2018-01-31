@@ -1,0 +1,170 @@
+<html>
+
+<head>
+  
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>	
+  	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+ 
+
+
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- Jquery  to animate highcharts-->
+    <script type="text/javascript" src="https://rawgithub.com/morr/jquery.appear/master/jquery.appear.js"></script>
+	
+    <!-- Custom fonts for this template -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+
+    <!-- Custom styles for this template -->
+    <link href="http://xchange.org/reports/css/pablo-grayscale.min.css" rel="stylesheet">
+	
+	<!-- timeline styling -->
+	<link href="css/timeline.css" rel="stylesheet">
+	
+
+	
+</head>
+<style>
+
+      html, body {
+		margin:0px;
+	    font-family: "Lato",sans-serif;
+        height: 100%;
+		font-size:15px;
+        width: 100%; 
+		
+		background: #efefef;
+		
+      }
+
+	::-webkit-scrollbar {display:none;}  
+	  
+</style>
+ 
+<body>
+<!-- highcharts.js -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/highcharts-more.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+   
+	
+
+<div>
+<!--<div  style="width:100%;margin-top:20px;position:absolute;z-index:100;text-align:center;color:black;font-size:20px">Round 16: <span id="arrivals" style="font-size:20px;color:#2764ad;font-weight: bold">0</span></div>-->
+
+<iframe width="100%" height="70%"  src="https://migrantreport.carto.com/viz/90a73a8c-858d-4d03-a4f3-d06c08394570/embed_map" frameborder="0" scrolling="no"></iframe>
+
+</div>
+ 
+
+ 
+
+<br>
+<br>
+<div  style="text-align:center" class="arrow bounce">
+ 
+<a style="font-size:35px;color:#2764ad" href="#incidents" class="js-scroll-trigger"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+
+</div>
+			<!-- Incidents Section -->
+			<section id="incidents" class="content-section text-center">
+			  <div class="container">
+				<div class="row">
+				  <div class="col-lg-8 mx-auto">
+					<h2>SAR Operations : Maritime Incidents</h2>
+			
+			<br><br>
+			<!--CHART INCIDENTS VS ARRIVALS -->
+		
+			  <div  id="container20" style="min-width: 300px; height: 500px; margin: 1em"></div>
+			 <!-- <div class="col"  id="container2" style="min-width: 300px; height: 300px; margin: 1em"></div>-->
+			  
+
+			
+			
+			
+			<p>
+			The primary aim of this research was to investigate the push factors that led to the mass migration of Rohingyas following the events of August 25th in northern Rakhine. To do so, it was 
+			necessary to elicit the event(s) or incident(s) that led to the respondents departure. The survey questions were as follows:
+ 			</p>
+			
+			
+			  <div  id="container4" style="min-width: 300px; height: 300px; margin: 1em"></div>
+			
+			<p>
+			<i>Have you suffered or witnessed any major incident in Rakhine since October 2016?</i>
+			</p>
+			
+			
+			
+			<iframe width="100%" height="100%"  src="http://localhost/iom/GP_Greece.html" frameborder="0" scrolling="no"></iframe>
+
+		
+			
+			<p>
+			If the question was answered in the affirmative, a description of the incident was requested with the following prompts:
+ 			</p>
+			
+			<ul>
+			  <li>Date of the incident.</li>
+			  <li>What happened?</li>
+			  <li>Who committed the incident?</li> 
+			  <li>Where did it happen?</li>  
+			</ul>
+			 <div  id="container3" style="min-width: 300px; height: 300px; margin: 1em"></div>
+			<!-- fact box -->
+			<p class="factbox">
+			<span class=""  >&#10077; </span>For the purpose of this survey, an “incident” is defined as an event or abuse of some kind that was considered serious or meaningful enough to the respondent to induce them to flee their home in Myanmar. This question was intended to elicit responses relating to incidents personally experienced or directly witnessed by the respondents. Incidents that occurred in a neighbouring village, where the respondents were not physically present, were not considered.
+			<span class=""  >&#10078 </span>
+			</p>
+            <!-- fact box -->
+				  </div>
+				</div>
+			  </div>
+			</section>	
+
+	
+
+  
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>   
+
+    <!-- Custom scripts for this template -->
+    <script src="js/grayscale.min.js"></script>
+		
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"></script>
+	
+	<script src="js/charts_iom.js" ></script>
+	
+</body>
+<script>
+ //ANIMATED FIGURES
+	    var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+		$('#arrivals').animateNumber(
+		{
+ 
+		number: 12164,
+		numberStep: comma_separator_number_step
+		},
+		10000
+		);
+
+		$('#deaths').animateNumber(
+		{
+		
+		number: 120,
+		numberStep: comma_separator_number_step
+		},
+		10000
+		)
+</script>
+
+
+</html>

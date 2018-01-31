@@ -1,36 +1,78 @@
+
+<!DOCTYPE html>
 <html>
-
 <head>
-  
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>	
-  	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <!-- animated numbers set -->
-	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 
-	<script src="js/jquery.animateNumber.min.js"></script>
-	
-	<!-- highcharts.js -->
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-	
-</head>
-<!--<style>
+  <title>Create a custom widget - 4.6</title>
 
-      html, body {
+  <style>
+    .esri-hello-world {
+      font-family: "Helvetica Neue", sans-serif;
+      display: inline-block;
+    }
+    
+    .esri-hello-world--emphasis {
+      font-weight: bold;
+    }
+  </style>
+  <script>
+  var locationPath = location.pathname.replace(/\/[^\/]+$/, "");
+  window.dojoConfig = {
+    packages: [
+      {
+        name: "app",
+        location: locationPath + "/app"
+      }
+    ]
+  };
+  </script>
+  <script src="https://js.arcgis.com/4.6/"></script>
+  <script>
+    var widget;
 
-	    font-family: "Lato",sans-serif;
-        height: 100%;
-		font-size:15px;
-        width: 100%;       
-		background:#595959
+    require([
+      "http://localhost/iom/js/HelloWorld.js",
+      "dojo/domReady!"
+    ], function(
+      HelloWorld
+    ) {
+
+      var names = [
+        {
+          firstName: "John",
+          lastName: "Smith"
+        },
+        {
+          firstName: "Jackie",
+          lastName: "Miller"
+        },
+        {
+          firstName: "Anna",
+          lastName: "Price"
+        }],
+        nameIndex = 0;
+
+      var widget = new HelloWorld({
+        firstName: names[nameIndex].firstName,
+        lastName: names[nameIndex].lastName,
+        container: "widgetDiv"
+      });
+
+      function changeName() {
+        widget.set(names[++nameIndex % names.length]);
       }
 
-</style>-->
-  
+      widget.on("greeted", function(e) {
+        console.log(e);
+      })
+      setInterval(changeName, 1000);
+    });
+  </script>
+</head>
+
 <body>
-<p style="text-align:center; margin-top:100px;color:black;font-size:30px"> Here goes narrative for IDP's</p>
-
+  <div id="widgetDiv"></div>
 </body>
-
 </html>

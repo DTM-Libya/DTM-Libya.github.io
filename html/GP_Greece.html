@@ -1,113 +1,26 @@
 <html>
 <head>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-	<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
-    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
-	<script src='https://cartodb-libs.global.ssl.fastly.net/torque.full.js'></script>
-	<link rel='stylesheet' id='ls-google-fonts-css' href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+   <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="js/ly-all.js"></script>
+
+
   
   
 </head>  
   <style>
-    html{width:100%; height:100%;padding:0px;margin:0px}
-    body {
-	margin:0px;
-    font-family: "Lato",sans-serif;
-    font-size: 17px;
-    font-weight: 300;}
-	
-	#map { width: 100%; height:100%; background: black;}
-   
-   
-	 
-	
-		  
-	 .leaflet-container .leaflet-control-attribution{
-      color: grey; -> change color of text
-      background-color: transparent;
-
-    }
-    .leaflet-container .leaflet-control-attribution a{
-      color: grey; -> change the color of the hyperlinks
-      
-    }
- 	
-
-	/* Hide attribution control, beware with data license!!*/
-.leaflet-control-attribution,
-div#cartodb-gmaps-attribution {
-  display: none;
-}	
- 
-@media screen and (max-width: 501px) {
-  .symbol{ display: none; }   /* hide it elsewhere */
-} 
-
-.landing {z-index:1000; position:absolute;top:50px;color:white;text-align:center;width:100%}
-
-@media screen and (max-width: 501px) {
-  .landing{top:0px;margin:15px;}   /* hide it elsewhere */
-} 
-
-
-
-.titles {font-size:24px;font-weight:bold;text-align:center;opacity:1;text-shadow: 2px 2px 3px black;}
-
-
-
-.disclaimer {font-size:17px;opacity:1; margin-top:0px;text-align:center}
-@media screen and (max-width: 501px) {
-  .disclaimer{font-size:20px}   /* hide it elsewhere */
-} 
-
-a.start{
-			 text-align:center;
-			 border: 1px solid white;
-			 opacity:1;
-	     	text-decoration: none;
-			 background:transparent;
-		     text-shadow:none;
-			 padding:5px 50px 5px 50px;
-			
-			 color:white
-			}
-	a.start:hover{
-			 
-			 border: 2px solid #ff704d;
-			 opacity:1;
-			
-		     text-shadow:none;
-			
-			 color:#ff704d;
-			}
-
     
-      li.time {
-        
-        top:-5px;
-        border:none!important;
-        z-index:10;
-		
-      }
-	  
-
-
-      li.controls {
-        color:black;
-      margin-right:0px;
-      border:none!important;
-      }
-
-      li.time.p {
-        color:red;
-        margin-left:0px;
-	
-      }
-
-  
+#container {
+     
+    min-height: 100%; 
+    max-width: 100%; 
+    margin: 0px 0px 0px 0px; 
+}
+.loading {
+   
+    text-align: center;
+    color: gray;
+}
 
   
   </style>
@@ -121,44 +34,103 @@ a.start{
 
 <body onload="init()">
   
-
+<div id="container"></div>
    
-	 <div id='map'></div>
-	 
-	 
-	 <script>
-
-      function main() {
-        
-        cartodb.createVis('map', 'https://migrantreport.carto.com/api/v2/viz/0978f8c6-aa58-4723-a7a0-ba14e08eee99/viz.json', { time_slider: false });
-      }
-      window.onload = main;
-  
 	
- /*
-https://migrantreport.carto.com/api/v2/viz/627dcff7-c706-4b20-99d3-204979841df3/viz.json
-	 cartodb.createLayer(map, {
-	  user_name: 'migrantreport',
-	 
-      type: 'cartodb',  
-	  order: 1,
-	  cartodb_logo: false,
-	sublayers: [{
-    sql: "SELECT * FROM mimu_rakhine_villages",
-    cartocss: ' #mimu_rakhine_villages{   marker-fill-opacity: 0.9;   marker-line-color: #FFF;   marker-line-width: 0.5;   marker-line-opacity: 1;   marker-placement: point;   marker-type: ellipse;   marker-width: 1;   marker-fill: #D6301D;   marker-allow-overlap: true; }  #mimu_rakhine_villages::labels {   text-name: [village];   text-face-name: "DejaVu Sans Book";   text-size: 10;   text-label-position-tolerance: 10;   text-fill: #000;   text-halo-fill: #FFF;   text-halo-radius: 1;   text-dy: -5;   text-allow-overlap: false;   text-placement: point;   text-placement-type: simple; } 	'}]
-		})
+<script>
+// Prepare demo data
+// Data is joined to map using value of 'hc-key' property by default.
+// See API docs for 'joinBy' for more info on linking data and map.
+var data = [
+    ['ly-gd', 6750], //nalut
+    ['ly-ju', 10130], //Al jufrah
+    ['ly-kf', 1490],//Al jufrah
+    ['ly-mb', 84873],//Al Marqab
+    ['ly-sh', 979],//Ash Shati
+    ['ly-gt', 6070],//Ghat
+    ['ly-mq', 23988],//Murzuq
+    ['ly-mi', 76012],//Misratah
+    ['ly-sb', 26330],//Sabha
+    ['ly-ji', 15971],//Al Jifarah
+    ['ly-nq', 15500],//Zwara
+    ['ly-za', 30619],//Azzawya
+    ['ly-mz', 6670],//Al Jabal
+    ['ly-tn', 136645],//Tripoli
+    ['ly-sr', 8410],//Sirt
+    ['ly-hz', 4000],//Al Marj
+    ['ly-ja', 6670],//Al jabal
+    ['ly-aj', 63191],//Ajdabia
+    ['ly-ba', 21345],//Benghazi
+    ['ly-qb', 4865],//Derna
+    ['ly-bu', 6400],//Tobrouk
+    ['ly-wh', 10610] //Ubari
+];
+
+// Create the chart
+Highcharts.mapChart('container', {
+    chart: {
+        map: 'countries/ly/ly-all',
+		 backgroundColor:'transparent' ,
 		
-	
+    },
+    exporting: {enabled: false},
+    title: {
+        text: ''
+    },
 
-	   .addTo(map)
-        .on('done', function (layer){
-   
-      });
+    subtitle: {
+        text: ''
+    },
 
-*/
-</SCRIPT>
+
 	
-</div>
+    mapNavigation: {
+        enabled: true,
+		enableMouseWheelZoom: false,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    colorAxis: {
+        min: 0,
+	
+		//stops: [[0, '#F1EEF6'], [0.65, '#900037'], [1, '#500007']],
+    },
+
+ tooltip: {
+            backgroundColor: 'none',
+            borderWidth: 0,
+            shadow: false,
+            useHTML: true,
+            padding: 0,
+            pointFormat: 
+                '</span></span> {point.name}<br>' +
+                '<span style="font-size:30px">{point.value} ppl</span>',
+            positioner: function () {
+                return { x: 0, y: 0 };
+            }
+        },
+
+
+    series: [{
+        nullColor: 'red',
+		data: data,
+        name: 'Numeber of Migrants',
+        states: {
+            hover: {
+                color: '#BADA55'
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+        }
+    }]
+});
+
+</script>	
+
   
   </body>
   
