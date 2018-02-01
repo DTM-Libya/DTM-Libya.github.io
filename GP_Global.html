@@ -1,0 +1,431 @@
+<html>
+
+<head>
+  
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+  	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  
+   
+	<script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+	<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+</head>
+
+  <style>
+    html, body {width:100%; height:100%; padding: 0; margin: 0;font-family: "Lato",sans-serif;}
+    #map { width: 100%; height:100%; background: black;}
+    
+   
+  div.cartodb-timeslider{ display: none!important; }    
+		
+	  
+
+
+  
+   .leaflet-container .leaflet-control-attribution{
+      color: red; -> change color of text
+      background-color: transparent;
+
+    }
+    .leaflet-container .leaflet-control-attribution a{
+      color: grey; -> change the color of the hyperlinks
+      
+    }
+	
+	.cartodb-legend {	
+		
+		width: 220px;
+		height: auto;
+		position: absolute;
+		bottom: 20px !important;
+		right: 20px;
+		background-color:rgba(0, 0, 0, 0.5);
+		 }
+		@media screen and (max-width: 501px) {
+  .cartodb-legend  { display: none; }   /* hide it elsewhere */
+	}
+  #linechart{
+   position: absolute;
+       bottom: 10px;
+        left: 10px;
+		 width: 300px;
+    height: 215px;
+       
+      }
+.slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+	
+  </style>
+  
+  <body>
+  
+	<div id='map'></div>
+	
+	
+	<div id="linechart" class="slide-in" ></div>
+	<script type="infowindow/html" id="infowindow_template"></script>
+	
+   <script type="infowindow/html" id="infowindow_template2"></script>
+	<!--Legend-->
+	<div style="background-color:#ccc" class='cartodb-legend choropleth'>
+	  
+	  
+		<div style="padding-top:0px; margin-bottom:0px;text-align: center;font-size:13;color:black;font-weight:bold">Main Countries of Origin - 2017<br><span style="font-size:10;color:#232227;margin-bottom:-10px">Arrivals by origin (As of 1 June 2017)</span></div>
+		
+		<ul>
+			<li class="min">
+				0.1%
+			</li>
+			<li class="max">
+				43%
+			</li>
+			<li class="graph count_315">
+			<div class="colors">
+			
+						
+			<div class="quartile" style="background-color:#FFFFB2"></div>
+			<div class="quartile" style="background-color:#FED976"></div>
+			<div class="quartile" style="background-color:#FEB24C"></div>
+			<div class="quartile" style="background-color:#FD8D3C"></div>
+			<div class="quartile" style="background-color:#FC4E2A"></div>
+			<div class="quartile" style="background-color:#E31A1C"></div>
+			<div class="quartile" style="background-color:#B10026"></div>
+			</div>
+			</li>
+		</ul>
+		 <p style="color:#232227;font-size:10;text-align:center;margin-bottom:-10px;padding-bottom:-5px;padding-top:0px">Source: UNHCR</p>
+	</div>
+	<!--End Legend-->	
+  
+  <script>
+   function addCursorInteraction(layer) {
+        var hovers = [];
+
+        layer.bind('featureOver', function(e, latlon, pxPos, data, layer) {
+          hovers[layer] = 2;
+          if(_.any(hovers)) {
+            $('#map').css('cursor', 'pointer');
+          }
+        });
+
+        layer.bind('featureOut', function(m, layer) {
+          hovers[layer] = 0;
+          if(!_.any(hovers)) {
+            $('#map').css('cursor', 'auto');
+          }
+        });
+      }
+ 
+  // load visualization library from google
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      function draw_chart5(data, a_location) {
+	       
+	  var data = google.visualization.arrayToDataTable([
+    
+        ['Month','2014','2015','2016','2017'],
+        ['Jan', data[0],data[12],data[24],data[36]],
+        ['Feb', data[1],data[13],data[25],'null'],
+        ['Mar', data[2],data[14],data[26],'null'],
+        ['Apr', data[3],data[15],data[27],'null'],
+		['May', data[4],data[16],data[28],'null'],
+		['Jun', data[5],data[17],data[29],'null'],
+		['Jul', data[6],data[18],data[30],'null'],
+		['Aug', data[7],data[19],data[31],'null'],
+		['Sep', data[8],data[20],data[32],'null'],
+		['Oct', data[9],data[21],data[33],'null'],
+		['Nov', data[10],data[22],data[34],'null'],
+		['Dec', data[11],data[23],data[35],'null'],
+    ]);
+    
+		
+	
+    var options = {
+           // title: a_location + ' population',
+            legend: { position: "none" },			
+			chartArea:{left:40,top:15,width:'60%',height:'60%'},
+            opacity: 0.3,
+            width:340,
+			height: 110,
+			backgroundColor:'transparent',
+			colors:['#00cc99','#ffcc99','#6699ff','#ff0000'],
+			animation:{	duration: 1000,	easing: 'out',},
+			//curveType: 'function',
+			theme: 'material',
+			//curveType: 'function',
+			//theme: 'material',
+			 
+			 series: {
+           
+              
+			  2: { lineWidth: 2 },
+			  1: { lineWidth: 1 },
+			  0: { lineWidth: 1 },
+          },
+		    series: {
+           
+              0: { lineDashStyle: [2, 2] },
+              1: { lineDashStyle: [2, 2] },
+			 
+          },
+		  
+		
+			hAxis: {
+			//title: 'Border-Crossings',
+			textStyle:{fontSize: '9', paddingRight: '0',marginRight: '0',color:'black'},
+            direction:1,
+            slantedText:true,
+            slantedTextAngle:45,
+			animation: {duration: 1000},
+			
+			
+            },
+           
+             vAxis: {
+            // set these values to make the initial animation smoother
+            //title: 'Border-Crossings',
+			minValue: 0,
+            maxValue: 100,
+			format: 'short',
+			gridlines: {color: '#ccc'},
+			textStyle: {fontSize: 10,color:'black'},
+        }
+			
+			
+			
+          };
+          var chart = new google.visualization.AreaChart(document.getElementById('chart_div5'));
+          chart.draw(data, options);
+    };
+  
+   /// END INTERACTIVE_ARRIVALS_REGION/// 
+
+
+  
+  function main() {
+
+      var map = new L.Map('map', { 
+	  scrollWheelZoom: false,
+	  attributionControl: false,
+      center: [35,20],
+      width: 500,
+	  zoom: 3,
+	  zoomControl:false
+    });
+	L.control.zoom({
+     position:'topright'
+	}).addTo(map);
+
+	var polygons = {};
+
+	
+	
+	
+	 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+      attribution: '<a href="">Developed by Pablo Gallego'
+    }).addTo(map);
+ 
+ 
+ //COUNTRIES OF ORIGIN//
+	  cartodb.createLayer(map, {
+	        https: true,
+		    cartodb_logo: false,
+		    legend:false,
+		    order: 6,
+            user_name: 'migrantreport',
+            type: 'cartodb',
+            sublayers: [{
+               sql: "SELECT country,ST_Union(the_geom_webmercator) as the_geom_webmercator,SUM (cartodb_id) cartodb_id,SUM (jan_16) jan_16,SUM (feb_16) feb_16,SUM (mar_16) mar_16,SUM (apr_16) apr_16,SUM (may_16) may_16,SUM (jun_16) jun_16,SUM (jul_16) jul_16,SUM (aug_16) aug_16,SUM (sep_16) sep_16,SUM (oct_16) oct_16,SUM (nov_16) nov_16,SUM (dec_16) dec_16,SUM (jan_17) jan_17,SUM (feb_17) feb_17,SUM (mar_17) mar_17,SUM (apr_17) apr_17,SUM (may_17) may_17,SUM (jun_17) jun_17, SUM(total_17) total_17 FROM arrivals_by_origin where total_17 != '0' GROUP BY country",
+            
+               cartocss: "/** choropleth visualization */  #arrivals_by_origin{   polygon-fill: #FFFFB2;   polygon-opacity: 0.8;   line-color: #FFF;   line-width: 0.5;   line-opacity: 1; } #arrivals_by_origin [ total_17 <= 11225] {    polygon-fill: #B10026; } #arrivals_by_origin [ total_17 <= 5032] {    polygon-fill: #E31A1C; } #arrivals_by_origin [ total_17 <= 3177] {    polygon-fill: #FC4E2A; } #arrivals_by_origin [ total_17 <= 2004] {    polygon-fill: #FD8D3C; } #arrivals_by_origin [ total_17 <= 751] {    polygon-fill: #FEB24C; } #arrivals_by_origin [ total_17 <= 359] {    polygon-fill: #FED976; } #arrivals_by_origin [ total_17 <= 26] {    polygon-fill: #FFFFB2; }",
+		       interactivity: 'cartodb_id'
+            }]
+          }).addTo(map)
+          
+		
+		  
+		   .done(function(layer){
+     
+            var sublayer = layer.getSubLayer(0); 
+
+            sublayer.setInteractivity("cartodb_id,country,jan_16,feb_16,mar_16,apr_16,may_16,jun_16,jul_16,aug_16,sep_16,oct_16,nov_16,dec_16,jan_17,feb_17,mar_17,apr_17,may_17,jun_17");
+            sublayer.setInteraction(true);
+			
+			// enable interaction for the
+			layer.getSubLayer(0).setInteraction(true);
+			addCursorInteraction(layer);
+			
+			  // add infowindow 
+           // cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['jan_17'])
+			
+			 layer.leafletMap.viz.addOverlay({
+                 type: 'tooltip',
+                 layer: sublayer,
+                 template: '<div style="padding:5px" class="cartodb-tooltip-content-wrapper">Click to display statistics</div>', 
+                // position: 'bottom|right',
+                 fields: [{ name: 'jan_17' }]
+               }); 
+			
+			
+	
+// get data from feature selected
+	sublayer.on('featureClick', function(e, latlng, pos, data) {
+
+            var municipio = data.country,
+			    jan_16 = data.jan_16,
+                feb_16 = data.feb_16,
+				mar_16 = data.mar_16,
+				apr_16 = data.apr_16,
+				may_16 = data.may_16,
+				jun_16 = data.jun_16,
+				jul_16 = data.jul_16,
+				aug_16 = data.aug_16,
+				sep_16 = data.sep_16,
+				oct_16 = data.oct_16,
+				nov_16 = data.nov_16,
+				dec_16 = data.dec_16;
+               	
+				jan_17 = data.jan_17;
+				feb_17 = data.feb_17;
+				mar_17 = data.mar_17;
+				apr_17 = data.apr_17;
+				may_17 = data.may_17;
+				jun_17 = data.jun_17;
+            // Highcharts section
+            Highcharts.chart('linechart', {
+                
+			
+             
+
+
+				chart: {
+				backgroundColor: "rgb(63, 63, 65)",
+                zoomType: 'x',
+                type:'area',
+				},
+                title: {
+                    text: false,
+					style: { "color": "white", "fontSize": "11px" }
+                },
+                subtitle: {
+                    text: "Sea arrivals (EU) from " + data.country + "",
+                style: { "color": "white", "fontSize": "14px" }
+				
+				},
+                  xAxis: {
+				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				labels: {
+                        overflow: 'justify',
+						style: { "color": "white", "fontSize": "9px" }
+                    }
+
+   },
+                yAxis: {
+				   gridLineWidth: 0.2,
+                    min: 0,
+                    title: {
+                        text: false,
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify',
+						style: { "color": "white", "fontSize": "9px" }
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+        plotOptions: {
+            
+	
+			
+			area: {
+               
+                marker: {
+                    radius: 0.5
+                },
+                lineWidth: 0.5,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+                legend: {
+                   /* layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 20,
+                    y: 30,
+                    floating: true,
+                    borderWidth: false,
+                    backgroundColor: ('rgba(255, 255, 255,0 )'),
+                    shadow: false,
+					
+					
+				   fontSize: "8px",
+                  	*/
+				   itemStyle: {color: 'white'},
+                },
+				
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: "2016",
+                    data: [jan_16,feb_16,mar_16,apr_16,may_16,jun_16,jul_16,aug_16,sep_16,oct_16,nov_16,dec_16],
+					color: 'rgba(255, 255, 128,1)',
+					lineWidth: 1,
+				   fillOpacity: 0.4
+					
+					
+                },
+				{
+                    name: "2017",
+                    data: [jan_17,feb_17,mar_17,apr_17,may_17,jun_17,'null','null','null','null','null','null'],
+					color: 'rgba(153, 0, 0,1)',
+					lineWidth: 2,
+                    fillOpacity: 0.7,
+					dashStyle: 'shortdot'
+			   }
+                ],
+				 exporting: {
+            enabled: false
+        }
+              });
+
+              });
+
+	//
+  }).on('error', function() {
+    //log the error
+  }); 
+ 
+   cartodb.createLayer(map, 'https://migrantreport.carto.com/api/v2/viz/1be01090-33de-11e6-a92b-0e3ff518bd15/viz.json', {cartodb_logo: false,legend:false,https: true})
+         .addTo(map)
+
+  
+
+  
+  
+  }  		  
+
+
+window.onload = main; 
+</script>
+</body>
+</html>

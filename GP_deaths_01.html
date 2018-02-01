@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+ 
+   
+	<!-- include cartodb.js library -->
+    	<script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+	   <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+
+    
+	 <!--BOOTSTRAP SET-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+	
+	<style>
+      html, body, #map {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+		font-family: "Lato",sans-serif;
+      }
+
+     
+	  
+	  ul.share-buttons{
+		  list-style: none;
+		  padding: 0;
+		}
+	  
+
+	
+	.cartodb-legend {	
+	
+	width: 220px;
+    height: auto;
+    position: absolute;
+    bottom: 20px !important;
+	background-color:rgba(0, 0, 0, 0.5);
+    right: 20px;
+	
+	 }
+	 
+	 	@media screen and (max-width: 501px) {
+  .cartodb-legend  { display: none; }   /* hide it elsewhere */}
+
+	<!-- Attribution-->
+	
+   .leaflet-container .leaflet-control-attribution{
+      color: red; -> change color of text
+      background-color: transparent;
+
+    }
+    .leaflet-container .leaflet-control-attribution a{
+      color: grey; -> change the color of the hyperlinks
+	  opacity:0;
+      
+    }
+	
+	
+	
+    div.cartodb-timeslider{ display: none!important; }    
+	
+	<!-- DROPDOWN MENU-->
+	.btn-group-vertical>.btn, .btn-group>.btn{
+     padding: 0px;
+	 
+     min-width: 170px;
+}
+    .dropdown-menu{
+    padding: 0px;
+	margin:0px;
+    max-width: 170px;
+	font-size:13px;
+}	
+
+.row {
+  //  min-width: 200px;
+	text-align:center;
+	margin-top:20px
+	}
+	
+	
+	
+	
+	
+	  
+    </style>
+   
+   
+    </head>
+    <body>
+    <div id="map">
+
+	<div style="text-align:center;padding:0px;border: 1px solid red ;color:red;position:absolute;width:170px;top: 10px;right: 50%;left: 50%;z-index: 1000;margin-left:-85px"><span id="num" style="font-size:20px;;color: red;font-weight: bold">2,388</span> Deaths </div>
+	</div>
+	
+	
+	<div style="color:black,font-weigh:bold" class="cartodb-legend bubble" >
+	<p style="margin-top:0px;margin-bottom:0px;font-size:15px;color:black;font-weight: bold"> Number of Deaths</p>
+
+	
+	<ul>
+		<li style="font-size:10px; text-transform: lowercase;">-</li>
+			<li class="graph" style="background: rgb(255, 0, 0);">
+			<div class="bubbles"></div>
+			</li>
+		<li style="font-size:10px; text-transform: lowercase;">+</li>
+	</ul>
+	<p style="font-size:11px;margin-top:0px;margin-bottom:-10px">Source: IOM</p>
+	</div>
+	
+	
+	
+	<!--FILTERs-->
+	<div style="position:absolute;top: 50px;right: 50%;left: 50%;z-index: 900;margin-left:-85px">
+      <!--routes-->
+	  <div class="btn-group">
+	 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+     <span style="padding:3px" class="selection">Filter by Route</span><span class="caret"></span>
+     </button> 
+		 <ul class="dropdown-menu" role="menu">
+		        <li><a style="font-weight:bold" href="#med_routes"  id="med_routes" class="button">Mediterranean</a></li>  
+				<li><a href="#cm"  id="cm" class="button">Central Mediterranean</a></li>
+		    	<li><a href="#em"  id="em" class="button">Eastern Mediterranean</a></li>
+				<li><a href="#wm"  id="wm" class="button">Western Mediterranean</a></li>
+				<li><a href="#wa"  id="wa" class="button">Western Africa</a></li>
+				<li><a href="#wb"  id="wb" class="button">Western Balkan</a></li>
+				<li><a href="#cuk"  id="cuk" class="button">Calais -> UK</a></li>
+					  				
+		 </ul>
+	 
+	</div>
+	<!--years-->
+	<div class="btn-group">
+	 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+     <span class="selection">2017 </span><span class="caret"></span>
+     </button>
+		 <ul class="dropdown-menu" role="menu">
+				<li><a href="#y_2014" id="y_2014" class="button">2014 </a></li>
+				<li><a href="#y_2015" id="y_2015" class="button">2015 </a></li>
+				<li><a href="#y_2016" id="y_2016" class="button">2016 </a></li>
+				<li><a href="#y_2017" id="y_2017" class="button">2017 </a></li>
+		 </ul>
+	</div>
+
+	
+	
+	</div>
+	
+	
+	
+
+	
+	
+	<script>
+	
+	
+	
+	
+	
+	
+	  var v1 = "'Apulia and Calabria','Central Mediterranean','Western Mediterranean','Western Africa','Eastern Mediterranean','Calais to UK','Horn of Africa to South Africa','Mexico to USA','Western Balkans','Mexico to United States','Turkey to Bulgaria'";
+	  var year = "'2014','2015','2016','2017'";
+   
+	  var months = "'1','2','3','4','5','6','7','8','9','10','11','12'";
+	  
+      function main() {
+        var map = new L.Map('map', {
+		  attributionControl: false,
+          zoomControl: false,
+         center: [35,27],
+         zoom: 5,
+	     minZoom: 3,
+        });
+		L.control.zoom({
+		position:'topright'
+		}).addTo(map);
+
+	
+		
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+  
+        }).addTo(map);
+        
+		
+		//Deaths//
+		
+		var val;
+		var sum = 0
+		var sublayers = [];
+		var sql = new cartodb.SQL({ user: 'migrantreport'});
+		
+		  // add layer
+          cartodb.createLayer(map, {
+            user_name: 'migrantreport',
+            type: 'cartodb',
+			cartodb_logo: false,
+			legends: true,
+            sublayers: [{
+               sql: "SELECT * FROM mmp_deaths where region = 'Mediterranean'  and year=2017",
+            
+               cartocss: "#mmp_deaths{   marker-fill-opacity: 0.7;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #B81609;   marker-allow-overlap: true;   marker-clip: false; } #mmp_deaths [ death_miss <= 750] {    marker-width: 30; } #mmp_deaths [ death_miss <= 243] {    marker-width: 19; } #mmp_deaths [ death_miss <= 145] {    marker-width: 18; } #mmp_deaths [ death_miss <= 104] {    marker-width: 12.3; } #mmp_deaths [ death_miss <= 77] {    marker-width: 17; } #mmp_deaths [ death_miss <= 56.5] {    marker-width: 16; } #mmp_deaths [ death_miss <= 42] {    marker-width: 14; } #mmp_deaths [ death_miss <= 30] {    marker-width:12; } #mmp_deaths [ death_miss <= 20] {marker-width: 10; } #mmp_deaths [ death_miss <= 9] { marker-width: 8}",
+          
+            }]
+          }).addTo(map)
+		
+		
+         .on('done', function(layer) {
+           // add time slider on change
+ 
+		  
+			var subLayerOptions = {
+			 sql:"SELECT * FROM mmp_deaths where region = 'Mediterranean'"
+			 } 
+		  
+		    var sublayer = layer.getSubLayer(0);
+ 
+            sublayers.push(sublayer);
+			
+		   cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['date','region', 'death_miss','location_description']);
+			
+			
+			
+			
+		   
+		  })
+		  
+		  
+       
+        .on('error', function() {		
+		
+          cartodb.log.log("some error occurred");
+        });
+		var LayerActions = {
+		med_routes: function() {
+		    var sum = 0
+			v1 = "'Apulia and Calabria','Central Mediterranean','Western Mediterranean','Eastern Mediterranean'";
+			  sublayers[0].set({
+				sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in (" + v1 + ") and year in (" + year + ")",
+				//as it is said, you can also add some CartoCSS code to make your points look like you want for the different queries
+				//cartocss: "#dtm_6_round{   marker-fill-opacity: 0.8;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #F11810;   marker-allow-overlap: true;   marker-clip: false; } #dtm_6_round [ cros6 <= 115000] {    marker-width: 30.0; } #dtm_6_round [ cros6 <= 50000] {marker-width: 18.8; } #dtm_6_round [ cros6 <= 14780] {    marker-width: 17.6; } #dtm_6_round [ cros6 <= 3700] {    marker-width: 16.3; } #dtm_6_round [ cros6 <= 1750] {    marker-width: 15.1; } #dtm_6_round [ cros6 <= 1325] {    marker-width: 13.9; } #dtm_6_round [ cros6 <= 1100] {    marker-width: 12.7; } #dtm_6_round [ cros6 <= 780] {    marker-width: 11.4; } #dtm_6_round [ cros6 <= 324] {    marker-width: 10.2; } #dtm_6_round [ cros6 <= 235] {    marker-width: 9.0; }"
+			  });
+			  
+			map.setView([34.539776, 20.174415], 6, {animation: true});
+			
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    
+			 return true;
+			},
+			
+			cm: function() {
+		    var sum = 0
+			v1 = "'Central Mediterranean'";
+			  sublayers[0].set({
+				sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in (" + v1 + ") and year in (" + year + ")",
+				//as it is said, you can also add some CartoCSS code to make your points look like you want for the different queries
+				//cartocss: "#dtm_6_round{   marker-fill-opacity: 0.8;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #F11810;   marker-allow-overlap: true;   marker-clip: false; } #dtm_6_round [ cros6 <= 115000] {    marker-width: 30.0; } #dtm_6_round [ cros6 <= 50000] {marker-width: 18.8; } #dtm_6_round [ cros6 <= 14780] {    marker-width: 17.6; } #dtm_6_round [ cros6 <= 3700] {    marker-width: 16.3; } #dtm_6_round [ cros6 <= 1750] {    marker-width: 15.1; } #dtm_6_round [ cros6 <= 1325] {    marker-width: 13.9; } #dtm_6_round [ cros6 <= 1100] {    marker-width: 12.7; } #dtm_6_round [ cros6 <= 780] {    marker-width: 11.4; } #dtm_6_round [ cros6 <= 324] {    marker-width: 10.2; } #dtm_6_round [ cros6 <= 235] {    marker-width: 9.0; }"
+			  });
+			  
+			map.setView([34.539776, 20.174415], 6, {animation: true});
+			
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    
+			 return true;
+			},
+			
+			  em: function() {
+			  var sum = 0
+			  v1 = "'Eastern Mediterranean'";
+			  sublayers[0].set({
+				sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in (" + v1 + ") and year in (" + year + ") ",
+				//as it is said, you can also add some CartoCSS code to make your points look like you want for the different queries
+				//cartocss: "#dtm_6_round{   marker-fill-opacity: 0.8;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #F11810;   marker-allow-overlap: true;   marker-clip: false; } #dtm_6_round [ dc6 <= 115000] {    marker-width: 20.0; } #dtm_6_round [ dc6 <= 28300] {    marker-width: 18.8; } #dtm_6_round [ dc6 <= 14780] {    marker-width: 17.6; } #dtm_6_round [ dc6 <= 3700] {    marker-width: 16.3; } #dtm_6_round [ dc6 <= 1750] {    marker-width: 15.1; } #dtm_6_round [ dc6 <= 1325] {    marker-width: 13.9; } #dtm_6_round [ dc6 <= 1100] {    marker-width: 12.7; } #dtm_6_round [ dc6 <= 780] {    marker-width: 11.4; } #dtm_6_round [ dc6 <= 324] {    marker-width: 10.2; } #dtm_6_round [ dc6 <= 235] {    marker-width: 9.0; }"
+			  });
+			 
+			map.setView([38.328894, 27.260841], 7, {animation: true});
+
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    
+			 return true;
+			},
+		
+				  wm: function() {
+			  var sum = 0
+			  v1 = "'Western Mediterranean'";
+			  sublayers[0].set({
+				sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in (" + v1 + ")and year in (" + year + ")",
+				//as it is said, you can also add some CartoCSS code to make your points look like you want for the different queries
+				//cartocss: "#dtm_6_round{   marker-fill-opacity: 0.8;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #F11810;   marker-allow-overlap: true;   marker-clip: false; } #dtm_6_round [ dc6 <= 115000] {    marker-width: 20.0; } #dtm_6_round [ dc6 <= 28300] {    marker-width: 18.8; } #dtm_6_round [ dc6 <= 14780] {    marker-width: 17.6; } #dtm_6_round [ dc6 <= 3700] {    marker-width: 16.3; } #dtm_6_round [ dc6 <= 1750] {    marker-width: 15.1; } #dtm_6_round [ dc6 <= 1325] {    marker-width: 13.9; } #dtm_6_round [ dc6 <= 1100] {    marker-width: 12.7; } #dtm_6_round [ dc6 <= 780] {    marker-width: 11.4; } #dtm_6_round [ dc6 <= 324] {    marker-width: 10.2; } #dtm_6_round [ dc6 <= 235] {    marker-width: 9.0; }"
+			  });
+			 
+	         map.setView([35.945782, -5.548224], 7, {animation: true});
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    
+			 return true;
+			},
+			 wb: function() {
+			  var sum = 0
+			  v1 = "'Western Balkans'";
+			  sublayers[0].set({
+				sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in (" + v1 + ")and year in (" + year + ")",
+				//as it is said, you can also add some CartoCSS code to make your points look like you want for the different queries
+				//cartocss: "#dtm_6_round{   marker-fill-opacity: 0.8;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #F11810;   marker-allow-overlap: true;   marker-clip: false; } #dtm_6_round [ dc6 <= 115000] {    marker-width: 20.0; } #dtm_6_round [ dc6 <= 28300] {    marker-width: 18.8; } #dtm_6_round [ dc6 <= 14780] {    marker-width: 17.6; } #dtm_6_round [ dc6 <= 3700] {    marker-width: 16.3; } #dtm_6_round [ dc6 <= 1750] {    marker-width: 15.1; } #dtm_6_round [ dc6 <= 1325] {    marker-width: 13.9; } #dtm_6_round [ dc6 <= 1100] {    marker-width: 12.7; } #dtm_6_round [ dc6 <= 780] {    marker-width: 11.4; } #dtm_6_round [ dc6 <= 324] {    marker-width: 10.2; } #dtm_6_round [ dc6 <= 235] {    marker-width: 9.0; }"
+			  });
+			 
+			map.setView([42.718396, 19.760996], 7, {animation: true});
+				 //sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    
+			 return true;
+			},
+			 cuk: function() {
+			  var sum = 0
+			  v1 = "'Calais to UK'";
+			  sublayers[0].set({
+				sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in (" + v1 + ")and year in (" + year + ") ",
+				//as it is said, you can also add some CartoCSS code to make your points look like you want for the different queries
+				//cartocss: "#dtm_6_round{   marker-fill-opacity: 0.8;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #F11810;   marker-allow-overlap: true;   marker-clip: false; } #dtm_6_round [ dc6 <= 115000] {    marker-width: 20.0; } #dtm_6_round [ dc6 <= 28300] {    marker-width: 18.8; } #dtm_6_round [ dc6 <= 14780] {    marker-width: 17.6; } #dtm_6_round [ dc6 <= 3700] {    marker-width: 16.3; } #dtm_6_round [ dc6 <= 1750] {    marker-width: 15.1; } #dtm_6_round [ dc6 <= 1325] {    marker-width: 13.9; } #dtm_6_round [ dc6 <= 1100] {    marker-width: 12.7; } #dtm_6_round [ dc6 <= 780] {    marker-width: 11.4; } #dtm_6_round [ dc6 <= 324] {    marker-width: 10.2; } #dtm_6_round [ dc6 <= 235] {    marker-width: 9.0; }"
+			  });
+			  
+			 map.setView([51.029073, 1.614194], 7, {animation: true});
+			 	 //sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+			  
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    
+			 return true;
+			},
+			wa: function() {
+			  var sum = 0
+			  v1 = "'Western Africa'";
+			  sublayers[0].set({
+				sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in (" + v1 + ")and year in (" + year + ")",
+				//as it is said, you can also add some CartoCSS code to make your points look like you want for the different queries
+				//cartocss: "#dtm_6_round{   marker-fill-opacity: 0.8;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-multi-policy: largest;   marker-type: ellipse;   marker-fill: #F11810;   marker-allow-overlap: true;   marker-clip: false; } #dtm_6_round [ dc6 <= 115000] {    marker-width: 20.0; } #dtm_6_round [ dc6 <= 28300] {    marker-width: 18.8; } #dtm_6_round [ dc6 <= 14780] {    marker-width: 17.6; } #dtm_6_round [ dc6 <= 3700] {    marker-width: 16.3; } #dtm_6_round [ dc6 <= 1750] {    marker-width: 15.1; } #dtm_6_round [ dc6 <= 1325] {    marker-width: 13.9; } #dtm_6_round [ dc6 <= 1100] {    marker-width: 12.7; } #dtm_6_round [ dc6 <= 780] {    marker-width: 11.4; } #dtm_6_round [ dc6 <= 324] {    marker-width: 10.2; } #dtm_6_round [ dc6 <= 235] {    marker-width: 9.0; }"
+			  });
+			  
+			 map.setView([27.824928, -14.319290], 7, {animation: true}); 
+			 //sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    
+			 return true;
+			},
+			
+  
+  y_2014: function(){
+    var sum = 0
+	year = "'2014'";
+    sublayers[0].set({
+	sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ") and year in (" + year + ")",
+	
+	
+	});
+	
+	map.setView([34.539776, 20.174415], 5, {animation: true});
+			
+			
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    return true;
+	
+  },
+  y_2015: function(){
+    var sum = 0
+	year = "'2015'";
+    sublayers[0].set({
+	sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ") and year in (" + year + ")",
+	
+	
+	});
+	
+	
+			
+			
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    return true;
+	
+  },
+   y_2016: function(){
+    var sum = 0
+	year = "'2016'";
+    sublayers[0].set({
+	sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ") and year in (" + year + ")",
+	
+	
+	});
+	
+
+			
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    return true;
+	
+  },
+   y_2017: function(){
+    var sum = 0
+	year = "'2017'";
+    sublayers[0].set({
+	sql: "SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ") and year in (" + year + ")",
+	
+	
+	});
+	
+
+			
+			
+			//sql API to filter and then js to count the number of rows filtered
+		     sql.execute("SELECT * FROM mmp_deaths WHERE migrantroute  in ("+ v1 + ")and year in (" + year + ") ") 
+			.done(function(data){
+				for(i = 0; i < data.total_rows; i++){ // loop that reads each column of the table
+				val = data.rows[i].death_miss
+				sum = sum + val
+				}
+			
+			console.log(sum)
+				   
+			var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+			$('#num').animateNumber({number: sum, numberStep: comma_separator_number_step},1000	);
+			 });	
+    return true;
+	
+  },
+ 
+  
+  
+  
+  
+  
+	}	
+
+
+		$('.button').click(function() {
+		  //$('.button').removeClass('selected');
+		  //$(this).addClass('selected');
+		  LayerActions[$(this).attr('id')]();
+		  console.log(LayerActions[$(this).attr('id')])
+			});
+		  
+		  $(".dropdown-menu li a").click(function(){
+
+		  $(this).parents(".btn-group").find('.selection').text($(this).text());
+		  $(this).parents(".btn-group").find('.selection').val($(this).text());
+
+			});
+				
+		
+		//END DEATHS//
+		
+		//ROUTES//
+		cartodb.createLayer(map, {
+		  user_name: 'migrantreport',
+		  type: 'cartodb',
+		  cartodb_logo: false,
+		  
+		  sublayers: [{
+			sql: "SELECT * FROM all_routes",
+			cartocss: '#all_routes {  line-color: white;  line-width: 2;  line-opacity: 0.1;  line-dasharray: 2,2;} #all_routes [type="g1"] {  line-color: white;  line-width: 2;  line-opacity: 0.2; }'
+			}]
+			})
+		.addTo(map)
+       
+		        
+		
+      }
+      // you could use $(window).load(main);
+      window.onload = main;
+    </script>
+	  <script src="http://4mi.regionalmms.org/js/jquery.animateNumber.min.js"></script>	
+	
+  </body>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</html>

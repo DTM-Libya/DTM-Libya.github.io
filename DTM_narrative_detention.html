@@ -1,0 +1,59 @@
+<html>
+
+<head>
+  
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>	
+  	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <!-- animated numbers set -->
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"></script>
+	
+	<!-- highcharts.js -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+	
+</head>
+<!--<style>
+
+      html, body {
+
+	    font-family: "Lato",sans-serif;
+        height: 100%;
+		font-size:15px;
+        width: 100%;       
+		background:#595959
+      }
+
+</style>-->
+  
+<body>
+
+<div style="text-align:center; margin-top:100px;color:black;font-size:20px">Round 15 <span id="arrivals" style="font-size:20px;;color: red;font-weight: bold">0</span></div>
+<p style="text-align:center; margin-top:100px;color:black;font-size:30px"> Here goes narrative for detention centers </p>
+
+
+</body>
+<script>
+ //ANIMATED FIGURES
+	    var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+		$('#arrivals').animateNumber(
+		{
+ 
+		number: 12164,
+		numberStep: comma_separator_number_step
+		},
+		10000
+		);
+
+		$('#deaths').animateNumber(
+		{
+		
+		number: 120,
+		numberStep: comma_separator_number_step
+		},
+		10000
+		)
+</script>
+</html>
