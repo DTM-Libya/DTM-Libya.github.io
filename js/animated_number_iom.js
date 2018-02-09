@@ -24,7 +24,8 @@
 
 //colunn chart, Type of incidents
 
-$('#origins_mg').highcharts({
+Highcharts.chart('origins_mg', {
+
 	
 	credits: {enabled: false},
       chart: {
