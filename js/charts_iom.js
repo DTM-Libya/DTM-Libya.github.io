@@ -664,3 +664,118 @@ Highcharts.chart('container20', {
     }
 });
 
+// Prepare demo data
+// Data is joined to map using value of 'hc-key' property by default.
+// See API docs for 'joinBy' for more info on linking data and map.
+var data = [
+    ['ly-gd', 6750], //nalut
+    ['ly-ju', 10130], //Al jufrah
+    ['ly-kf', 1490],//Al jufrah
+    ['ly-mb', 84873],//Al Marqab
+    ['ly-sh', 979],//Ash Shati
+    ['ly-gt', 6070],//Ghat
+    ['ly-mq', 23988],//Murzuq
+    ['ly-mi', 76012],//Misratah
+    ['ly-sb', 26330],//Sabha
+    ['ly-ji', 15971],//Al Jifarah
+    ['ly-nq', 15500],//Zwara
+    ['ly-za', 30619],//Azzawya
+    ['ly-mz', 6670],//Al Jabal
+    ['ly-tn', 136645],//Tripoli
+    ['ly-sr', 8410],//Sirt
+    ['ly-hz', 4000],//Al Marj
+    ['ly-ja', 6670],//Al jabal
+    ['ly-aj', 63191],//Ajdabia
+    ['ly-ba', 21345],//Benghazi
+    ['ly-qb', 4865],//Derna
+    ['ly-bu', 6400],//Tobrouk
+    ['ly-wh', 10610] //Ubari
+];
+
+// Create the chart
+Highcharts.mapChart('container30', {
+    chart: {
+        map: 'js/ly-all.js',
+		 backgroundColor:'transparent' ,
+		
+    },
+    exporting: {enabled: false},
+    title: {
+        text: ''
+    },
+
+    subtitle: {
+        text: ''
+    },
+
+
+	
+    mapNavigation: {
+        enabled: true,
+		enableMouseWheelZoom: false,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    colorAxis: {
+        min: 0,
+	
+		//stops: [[0, '#F1EEF6'], [0.65, '#900037'], [1, '#500007']],
+    },
+
+ tooltip: {
+            backgroundColor: 'none',
+            borderWidth: 0,
+            shadow: false,
+            useHTML: true,
+            padding: 0,
+            pointFormat: 
+                '</span></span> {point.name}<br>' +
+                '<span style="font-size:30px">{point.value} ppl</span>',
+            positioner: function () {
+                return { x: 0, y: 0 };
+            }
+        },
+
+
+    series: [{
+        nullColor: 'red',
+		data: data,
+        name: 'Numeber of Migrants',
+        states: {
+            hover: {
+                color: '#BADA55'
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+        }
+    }]
+});
+
+
+
+
+//ANIMATED FIGURES
+	    var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+		$('#arrivals').animateNumber(
+		{
+ 
+		number: 95097,
+		numberStep: comma_separator_number_step
+		},
+		10000
+		);
+
+		$('#deaths').animateNumber(
+		{
+		
+		number: 2231,
+		numberStep: comma_separator_number_step
+		},
+		10000
+		)
+
+
