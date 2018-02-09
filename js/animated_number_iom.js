@@ -20,7 +20,7 @@
 		);
 		
 		
-//bar chart origins 
+//bar chart origins //
 
 //colunn chart, Type of incidents
 
