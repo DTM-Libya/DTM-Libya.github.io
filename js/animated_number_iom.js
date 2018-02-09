@@ -24,6 +24,7 @@
 
 //colunn chart, Type of incidents
 
+
 Highcharts.chart('origins_mg', {
 
 	
@@ -33,7 +34,7 @@ Highcharts.chart('origins_mg', {
 	 backgroundColor:'transparent' ,
     },
     title: {
-        text: 'Reported Shelter Settings'
+        text: ''
     },
     subtitle: {
         text: '* '
