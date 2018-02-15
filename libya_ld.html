@@ -1,0 +1,255 @@
+
+<html>
+<head>
+
+    <title>Political Violence In Africa</title>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:type" content="website" />
+
+    <meta property="og:title" content="Africa: 20 Years of Political Violence" />
+
+    
+    <meta property="og:site_name" content="LJ | Incidents" />
+
+    <meta name="author" content="Pablo Gallego Cadabon">
+
+    <meta name="keywords" content="africa, violence, war, incidents, acled">
+
+  
+	
+	<!-- NEXT LINE Even if page is dynamically generated and URL contains query parameters -->
+	<meta property="og:description" content="Interactive map showing events of political violence and protests where fatalities occurred since 1997." />
+	<meta property="og:url" content="http://www.mapsinteractive.co.uk/acledmap/ACLED.html" />
+	<meta property="og:image" content="http://www.mapsinteractive.co.uk/acledmap/acled.jpg" />
+
+
+
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+	<script src='https://cartodb-libs.global.ssl.fastly.net/torque.full.js'></script>
+	<link rel='stylesheet' id='ls-google-fonts-css' href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+  
+  
+</head>  
+  <style>
+    html{width:100%; height:100%;}
+    body {
+	
+	margin:0px;
+    font-family: "Lato",sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+	font-size:100%
+	}
+	
+	
+	#map { width: 100%; height:100%; background: black;}
+   
+   
+	 
+	
+		  
+	 .leaflet-container .leaflet-control-attribution{
+      color: grey; -> change color of text
+      background-color: transparent;
+
+    }
+	
+    .leaflet-container .leaflet-control-attribution a{
+      color: grey; -> change the color of the hyperlinks
+    }
+ 	
+
+/* Hide attribution control, beware with data license!!*/
+.leaflet-control-attribution,
+div#cartodb-gmaps-attribution {
+  display: none;
+}	
+ 
+@media screen and (max-width: 501px) {
+  .symbol{ display: none; }   /* hide it elsewhere */
+} 
+
+.landing {position:absolute;top:170px;color:white;text-align:center;width:100%;}
+
+@media screen and (max-width: 501px) {
+  .landing{top:0px;padding:3px;}   /* hide it elsewhere */
+} 
+
+
+
+.titles {margin-top:150px;font-size:24px;font-weight:bold;text-align:center;opacity:0.9;text-shadow: 2px 2px 3px black;}
+
+
+.disclaimer {font-size:17px;opacity:1;text-align:center;margin-top:50px}
+@media screen and (max-width: 501px) {
+  .disclaimer{font-size:17px}   /* hide it elsewhere */
+} 
+
+a.start{
+			 text-align:center;
+			 border: 1px solid white;
+			 opacity:1;
+	     	text-decoration: none;
+			 background:transparent;
+		     text-shadow:none;
+			 padding:5px 50px 5px 50px;
+			
+			 color:white
+			}
+	a.start:hover{
+			 
+			 border: 2px solid #ff704d;
+			 opacity:1;
+			
+		     text-shadow:none;
+			
+			 color:#ff704d;
+			}
+
+.cartodb-timeslider{
+
+        background-color:white;
+        left: auto!important; /*reset/disable the default left position of the timeslider*/
+        right: 20px!important; /*move the box to the right:20px*/
+        bottom: 10px!important; /*move the box to the bottom:300px*/
+        background-color: transparent!important; /*set the color of the box to black*/
+      border:none!important;
+      } 
+    
+      li.time {
+        
+        top:-5px;
+        border:none!important;
+        z-index:10;
+		
+      }
+	  
+
+
+      li.controls {
+        color:black;
+      margin-right:0px;
+      border:none!important;
+      }
+
+      li.time.p {
+        color:red;
+        margin-left:0px;
+	
+      }
+
+  </style>
+  
+  <script>
+  
+
+
+
+
+
+
+	
+var map;
+  function init(){
+    // initiate leaflet map
+    map = new L.Map('map', { 
+	  attributionControl: false,
+      scrollWheelZoom: false,
+	  center: [27.247465, 17.712619],
+      //width: 500,
+	  zoom: 4,
+	 
+	
+	  zoomControl:false
+    })
+	
+	
+	
+
+	
+	
+	 L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	    //type: 'sat',
+	   // ext: 'jpg',
+	    opacity: 1,
+         attributionControl: false,	   
+        //attribution: '<a href="">&#174 Pablo Gallego / Migrant Report.&#124;&#124;',
+		//subdomains: '1234'
+        }).addTo(map);
+		//http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png
+	//http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
+	//http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png
+	//http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png 
+	//http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png
+	//http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}
+	
+	
+	
+
+
+	
+	
+	
+	
+	 //COUNTRIES OF ORIGIN//
+	  cartodb.createLayer(map, {
+		    cartodb_logo: false,
+		    legend:false,
+		    order: 6,
+            user_name: 'migrantreport',
+            type: 'cartodb',
+            sublayers: [{
+               sql: "SELECT * FROM world_new where name='Libya'",
+            
+               cartocss: "#world_new{  polygon-fill: #3570a9;  polygon-opacity: .8;  line-color: #FFF;  line-width: 4;  line-opacity: 0.5;}",
+		      
+            }]
+          }).addTo(map)
+  
+ 
+	 }
+	
+ 
+
+</SCRIPT>
+
+
+
+<body onload="init()">
+
+  <div id='map'></div>	
+  
+
+      <div class="landing" >
+		<p class="titles" ><span style="opacity:0.9">Displacement Tracking Matrix<span style="color:#3570a9"> &#8226;</span> Libya</span>
+				
+
+
+			<div class="disclaimer" >
+		   DTM is a project designed to support the humanitarian community with demographic baselines needed to coordinate evidence-based interventions.
+			
+			</div>
+			<!--<div style="right:150px;margin-left:50%;margin-right:50%;width:300px;text-align:center;font-weight:normal;top:20px;position:relative; "  ><a class="start" href="http://www.mapsinteractive.co.uk/acledmap/ACLED_2017.html" >Explore in detail</a></div>
+			-->
+		
+			<p style="opacity:0.8;margin-top:20px;position:relative; display: block; margin-left: auto;margin-right: auto; text-align: center;font-size:12px;" >&#174 Developed by <a style="text-decoration: none;"  href="" ><span style="text-decoration: none;font-size:13px;color:white; font-weight: 800;"> DTM Libya</a></p>
+			
+			</div> 
+  
+  </body>
+      
+			
+			
+</html>

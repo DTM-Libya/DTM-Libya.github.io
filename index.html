@@ -1,25 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
   <title>IOM DTM</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"></script>
+  <!--Animated/running numbers -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"></script>
+  
+  
 
+  
+  
+  
+
+  <!-- Custom fonts for this template -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700,800,400italic,700italic" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto Slab:400,700,800, 400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+
+
+   
+   
+   
 </head>
 <style>
-#map { position: relative; height: 100% }
 
-html {
-  height: 100%;
+body{
+	 font-family: Calibri;
+	
+	 height:100%;
+	 
+	 
+	 
+	 }
+	 
+html{
+background: #efefef;
+	
+	width:100%;
+	height:100%
+	}
+
+h1,h2,h3,h4,h5,h6{
+	
+	font-family: "Gill Sans MT";
+	font-weight:900;
+	margin:0 0 15px;
+	letter-spacing:3px;
+	text-transform:uppercase
 }
-body {
-  height: 100%;
-}
+
+
+
+#map { position: relative; height: 100%; }
+
+
+
 ul.nav li:hover { background-color:#275a86 ;color:white !important; }
 
 sections {color:blue}
@@ -62,7 +108,8 @@ sections {color:blue}
 
 <body>
 
-<nav  style="background-color: #3473a9; border-color: white; opacity: 1; border-radius: 0px;border:0px" class="navbar navbar-default">
+
+<nav  style="z-index:1000;background-color:#3571a9; border-color: white; opacity: 1; border-radius: 0px;border:0px" class="navbar navbar-default">
    <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div  class="navbar-header">
@@ -80,9 +127,15 @@ sections {color:blue}
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+	    <li style="background:#366a9c" ><a style="color:white;" class="btn btn-primary btn-outline" href="#" id="map10">Home</a></li>
 	    <li class="dropdown">
-          <a style="color:white"  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
-          <ul class="dropdown-menu">
+       
+		 <a style="color:white"  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
+        
+		
+	
+
+		 <ul class="dropdown-menu">
             <li><a href="#">Methodology</a></li>
             <li><a href="#">Disclaimer</a></li>
             
@@ -109,7 +162,7 @@ sections {color:blue}
 		<li class="dropdown">
     <a style="color:white;font-weight:bold" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IDP's / Returnees<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a class="btn btn-primary btn-outline" href="#" id="map1">IDP: Clusters & Demographics</a></li>
+            <li><a class="btn btn-primary btn-outline" href="#" id="map5">IDP: Clusters & Demographics</a></li>
             <li><a class="btn btn-primary btn-outline" href="#" id="map8">Returnee: Clusters & Demographics</a></li>
             <li><a class="btn btn-primary btn-outline" href="#" id="map7">Multisectorial Data</a></li>
 			<li><a class="btn btn-primary btn-outline" href="#" id="map4">SAR</a></li>
@@ -133,7 +186,7 @@ sections {color:blue}
           </ul>
         </li>
         
-		 <li><a style="color:white;font-weight:bold"  class="nav-link js-scroll-trigger" href="#contactus">Contact Us</a></li>
+		
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -148,7 +201,10 @@ sections {color:blue}
 <!--<div class="container"> 	 
 <div style="color:white" id="narrative" ></div>--> 
  
+</body>
 
+
+</html>
     <script>
       
       var map;
@@ -177,7 +233,9 @@ sections {color:blue}
 
 		 $('#map9').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="html/DTM_world.html" frameborder="0" scrolling="no"></iframe>');			$('#narrative').load( "html/DTM_narrative_idp.html" );        }); 		
 
-		
+		 $('#map10').click(function(){			$('#map').html('<iframe width="100%" height="100%" frameborder="0" src="https://dtm-libya.github.io/DTM_landing.html" frameborder="0" scrolling="yes"></iframe>');	   }); 		
+
+		 
 		
 		// Click on first button
         $('#map1').click();
