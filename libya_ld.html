@@ -221,14 +221,12 @@ var layerUrl2 =	'https://pablo-cartodb.carto.com/api/v2/viz/b2b59f45-fa4c-4e4c-8
 	)
 	.addTo(map)
 	.on('done', function(layer) {
-   
-	
-	//***Create the sublayer to be toggled 	  
-		  
-		  
-  
- 
-	 }
+	map.addLayer(layer);
+	//layer.interaction.remove();
+    //layer.interaction = null;
+	}).on('error', function() {
+	//log the error
+	});
 	
  
 
