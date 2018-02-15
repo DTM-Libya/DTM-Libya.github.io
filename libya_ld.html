@@ -21,7 +21,6 @@
 
     <meta name="keywords" content="africa, violence, war, incidents, acled">
 
-  
 
 
 
@@ -154,7 +153,8 @@ a.start{
 var map;
   function init(){
     // initiate leaflet map
-    map = new L.Map('map', { 
+    map = new L.Map('map', {
+	  
 	  attributionControl: false,
       scrollWheelZoom: false,
 	  center: [27.247465, 17.712619],
@@ -195,6 +195,7 @@ var map;
 	
 	 //COUNTRIES OF ORIGIN//
 	  cartodb.createLayer(map, {
+	        https: true,
 		    cartodb_logo: false,
 		    legend:false,
 		    order: 6,
@@ -211,23 +212,7 @@ var map;
 		  
 		  
 		  
-		  
-		
-var layerUrl2 =	'https://pablo-cartodb.carto.com/api/v2/viz/b2b59f45-fa4c-4e4c-82ec-1717fb0f6f16/viz.json';
-	var sublayers = [];
-	cartodb.createLayer(map, layerUrl2, {
-	cartodb_logo: false,
-	}
-	)
-	.addTo(map)
-	.on('done', function(layer) {
-	map.addLayer(layer);
-	//layer.interaction.remove();
-    //layer.interaction = null;
-	}).on('error', function() {
-	//log the error
-	});
-	
+
  
 
 </SCRIPT>
