@@ -21,6 +21,7 @@
 
     <meta name="keywords" content="africa, violence, war, incidents, acled">
 
+  
 
 
 
@@ -153,8 +154,7 @@ a.start{
 var map;
   function init(){
     // initiate leaflet map
-    map = new L.Map('map', {
-	  
+    map = new L.Map('map', { 
 	  attributionControl: false,
       scrollWheelZoom: false,
 	  center: [27.247465, 17.712619],
@@ -202,17 +202,18 @@ var map;
             user_name: 'migrantreport',
             type: 'cartodb',
             sublayers: [{
-               sql: "SELECT * FROM world_boundaries where name='Libya'",
+               sql: "SELECT * FROM world_new where name='Libya'",
             
-               cartocss: "#world_boundaries{  polygon-fill: #3570a9;  polygon-opacity: .8;  line-color: #FFF;  line-width: 4;  line-opacity: 0.5;}",
+               cartocss: "#world_new{  polygon-fill: #3570a9;  polygon-opacity: .8;  line-color: #FFF;  line-width: 4;  line-opacity: 0.5;}",
 		      
             }]
           }).addTo(map)
-		  
-		  
-		  
-		  
-
+  
+ 
+ 
+ 
+	 }
+	
  
 
 </SCRIPT>
