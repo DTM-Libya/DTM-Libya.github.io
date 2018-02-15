@@ -201,12 +201,31 @@ var map;
             user_name: 'migrantreport',
             type: 'cartodb',
             sublayers: [{
-               sql: "SELECT * FROM world_new where name='Libya'",
+               sql: "SELECT * FROM world_boundaries where name='Libya'",
             
-               cartocss: "#world_new{  polygon-fill: #3570a9;  polygon-opacity: .8;  line-color: #FFF;  line-width: 4;  line-opacity: 0.5;}",
+               cartocss: "#world_boundaries{  polygon-fill: #3570a9;  polygon-opacity: .8;  line-color: #FFF;  line-width: 4;  line-opacity: 0.5;}",
 		      
             }]
           }).addTo(map)
+		  
+		  
+		  
+		  
+		  
+		
+var layerUrl2 =	'https://pablo-cartodb.carto.com/api/v2/viz/b2b59f45-fa4c-4e4c-82ec-1717fb0f6f16/viz.json';
+	var sublayers = [];
+	cartodb.createLayer(map, layerUrl2, {
+	cartodb_logo: false,
+	}
+	)
+	.addTo(map)
+	.on('done', function(layer) {
+   
+	
+	//***Create the sublayer to be toggled 	  
+		  
+		  
   
  
 	 }
