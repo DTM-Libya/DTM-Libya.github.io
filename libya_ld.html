@@ -193,24 +193,12 @@ var map;
 	
 	
 	
-	 //COUNTRIES OF ORIGIN//
-	  cartodb.createLayer(map, {
-	        https: true,
-		    cartodb_logo: false,
-		    legend:false,
-		    order: 6,
-            user_name: 'migrantreport',
-            type: 'cartodb',
-            sublayers: [{
-               sql: "SELECT * FROM world_new where name='Libya'",
-            
-               cartocss: "#world_new{  polygon-fill: #3570a9;  polygon-opacity: .8;  line-color: #FFF;  line-width: 4;  line-opacity: 0.5;}",
-		      
-            }]
-			
-			
-          }).addTo(map)
+cartodb.createLayer(map, 'https://pablo-cartodb.carto.com/api/v2/viz/df4aae50-f1e0-4fde-b135-4521a4d6720b/viz.json', {cartodb_logo: false,legend:false,https: true})
+         .addTo(map)
+
   
+ 
+ 
  
  
  
