@@ -4,7 +4,7 @@
 		$('#arrivals').animateNumber(
 		{
  
-		number: 95097,
+		number: 704142,
 		numberStep: comma_separator_number_step
 		},
 		10000
@@ -13,7 +13,7 @@
 		$('#deaths').animateNumber(
 		{
 		
-		number: 2231,
+		number: 165478,
 		numberStep: comma_separator_number_step
 		},
 		10000
@@ -21,7 +21,7 @@
 		$('#returnees').animateNumber(
 		{
 		
-		number: 40000,
+		number: 341534,
 		numberStep: comma_separator_number_step
 		},
 		10000
