@@ -728,3 +728,125 @@ Highcharts.chart('pyramid_ret', {
 	]
 });
 
+Highcharts.chart('line_1', {
+	
+	credits: {enabled: false},
+    
+    chart: {
+        type: 'spline',
+		//backgroundColor:'transparent' 
+    },
+    title: {
+        text: 'Arrivals Dates Vs Incindents Dates '
+    },
+    subtitle: {
+        text: ''
+    },
+   
+ annotations: [{
+	 
+	    labelOptions: {
+            backgroundColor: 'rgba(255,255,255,0.5)',
+            verticalAlign: 'bottom',
+            
+        },
+	 
+	 
+        labels: [{
+            point: { x: 155, y: 45 },
+            text: 'Aug 25: 12 security officers killed by ARSA insurgents'
+        }]
+    }],
+
+
+
+   xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: { // don't display the dummy year
+            month: '%e. %b',
+            year: '%b'
+        },
+        title: {
+            text: 'Date'
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'No. of people'
+        },
+        min: 0
+    },
+    tooltip: {
+        headerFormat: '<b>{series.name}</b><br>',
+        pointFormat: '{point.x:%e %b}: {point.y:.0f} People'
+    },
+
+	
+	 labelOptions: {
+            shape: 'connector',
+            align: 'right',
+            justify: false,
+            crop: true,
+            style: {
+                fontSize: '0.8em',
+                textOutline: '1px white'
+            }
+        },
+	
+	
+	
+	
+    plotOptions: {
+           areaspline: {
+            fillOpacity: 0.7
+        }
+    },
+series: [{
+        name: '', 
+        // Define the data points. All series have a dummy year
+        // of 1970/71 in order to be compared on the same x axis. Note
+        // that in JavaScript,  months start at 0 for January,  1 for February etc.
+        data: [
+  
+
+[Date.UTC(2017, 0, 01), 386223],
+[Date.UTC(2017, 01, 28), 386223],
+[Date.UTC(2017, 02, 20), 351382],
+[Date.UTC(2017, 03, 29), 393652],
+[Date.UTC(2017, 04, 28), 390198],
+[Date.UTC(2017, 05, 30), 400445],
+[Date.UTC(2017, 06, 30), 400445],
+[Date.UTC(2017, 07, 30), 416556],
+[Date.UTC(2017, 08, 30), 423394],
+[Date.UTC(2017, 09, 30), 432574],
+[Date.UTC(2017, 10, 30), 621706],
+[Date.UTC(2017, 11, 30), 621706]	
+        
+        ]
+    },  {
+        name: 'Incidents dates (Myanmar)', 
+        data: [
+
+[Date.UTC(2017, 0, 01), 386223],
+[Date.UTC(2017, 01, 25), 386223],
+[Date.UTC(2017, 02, 26), 351382],
+[Date.UTC(2017, 03, 16), 393652],
+[Date.UTC(2017, 04, 30), 390198],
+[Date.UTC(2017, 05, 30), 400445],
+[Date.UTC(2017, 06, 30), 400445],
+[Date.UTC(2017, 07, 30), 416556],
+[Date.UTC(2017, 08, 30), 423394],
+[Date.UTC(2017, 09, 30), 432574],
+[Date.UTC(2017, 10, 30), 621706],
+[Date.UTC(2017, 11, 30), 621706]		
+
+            
+        ],
+color: 'rgba(255, 80, 80,0.8)',
+lineWidth: 3
+    }]
+	
+
+
+});
+
