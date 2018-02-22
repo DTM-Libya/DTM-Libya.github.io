@@ -140,6 +140,10 @@ a.start{
 	
       }
 
+	 .cartodb-timeslider{ display: none!important; }    
+	  
+	  
+	  
   </style>
   
   <script>
@@ -199,7 +203,26 @@ cartodb.createLayer(map, 'https://pablo-cartodb.carto.com/api/v2/viz/df4aae50-f1
   
  
  
- 
+ 	//ANIMATION_TORQUE(1)//
+	cartodb.createLayer(map, {
+          type: "torque",
+          order: 2,
+		  cartodb_logo: false,
+		  
+          options: {
+		  
+		    time_slider:false,
+            query: "SELECT * FROM gp_routes_anim_all where route <>'southafrican' and route <> 'Eastern' and route <> 'Western-African'",
+            table_name: "gp_routes_anim_all",
+            user_name: "migrantreport",
+            tile_style: 'Map {-torque-frame-count:256;-torque-animation-duration:8;-torque-time-attribute:"id";-torque-aggregation-function:"count(cartodb_id)";-torque-resolution:2;-torque-data-aggregation:cumulative;}#gp_routes_anim_all{ comp-op: lighter;  marker-fill-opacity: 1; marker-line-color: grey; marker-line-width: 0; marker-line-opacity: 1; marker-type: ellipse; marker-width: 1; marker-fill: white;}#gp_routes_anim_all[frame-offset=1] {marker-width:1;marker-fill-opacity:0.1; }#gp_routes_anim_all[frame-offset=2] {marker-width:4; marker-fill-opacity:0.1; }'  
+			
+			}
+	    }).done(function(layer) {
+          map.addLayer(layer);
+        });
+
+	//END ANIMATION_TORQUE//
  
  
 	 }
@@ -216,13 +239,12 @@ cartodb.createLayer(map, 'https://pablo-cartodb.carto.com/api/v2/viz/df4aae50-f1
   
 
       <div class="landing" >
-		<p class="titles" ><span style="opacity:0.9">Displacement Tracking Matrix<span style="color:#3570a9"> &#8226;</span> Libya</span>
+		<p class="titles" ><span style="opacity:0.9">Mixed Migration Working Group<span style="color:#3570a9"> &#8226;</span> Libya</span>
 				
 
 
 			<div class="disclaimer" >
-		   DTM is a project designed to support the humanitarian community with demographic baselines needed to coordinate evidence-based interventions.
-			
+		  
 			</div>
 			<!--<div style="right:150px;margin-left:50%;margin-right:50%;width:300px;text-align:center;font-weight:normal;top:20px;position:relative; "  ><a class="start" href="http://www.mapsinteractive.co.uk/acledmap/ACLED_2017.html" >Explore in detail</a></div>
 			-->
