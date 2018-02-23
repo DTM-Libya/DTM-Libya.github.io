@@ -7,10 +7,10 @@
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
   	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  
-   
-	<script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
-	<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+	<script src="http://libs.cartocdn.com/cartodb.js/v3/3.14/cartodb.js"></script>
+	<link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.14/themes/css/cartodb.css" />
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
 </head>
@@ -233,13 +233,12 @@
 	
 	
 	 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
-      attribution: '<a href="">Developed by Pablo Gallego'
+      attribution: '<a href="http://xchange.org/category/maps/">Developed by Pablo Gallego'
     }).addTo(map);
  
  
  //COUNTRIES OF ORIGIN//
 	  cartodb.createLayer(map, {
-	        https: true,
 		    cartodb_logo: false,
 		    legend:false,
 		    order: 6,
@@ -415,11 +414,11 @@
     //log the error
   }); 
  
-   cartodb.createLayer(map, 'https://migrantreport.carto.com/api/v2/viz/1be01090-33de-11e6-a92b-0e3ff518bd15/viz.json', {cartodb_logo: false,legend:false,https: true})
+   cartodb.createLayer(map, 'https://migrantreport.carto.com/api/v2/viz/1be01090-33de-11e6-a92b-0e3ff518bd15/viz.json', {cartodb_logo: false,legend:false})
          .addTo(map)
 
   
-
+  
   
   
   }  		  
