@@ -1,0 +1,253 @@
+<html>
+
+<head>
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!--Animated/running numbers -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"></script>
+  
+  
+
+  
+  
+  
+
+    <!-- Custom fonts for this template -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700,800,400italic,700italic" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto Slab:400,700,800, 400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+
+    
+
+    <!-- snippers css - hovering effect -->
+    <link href="https://dtm-libya.github.io/css/mapping_windows.css" rel="stylesheet">
+	
+		<!-- highcharts.js -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+	
+</head>
+<style>
+
+      html, body {
+		margin:0px;
+	    font-family: "Lato",sans-serif;
+        height: 100%;
+		font-size:15px;
+        width: 100%; 
+		
+		background: #efefef;
+		
+      }
+
+
+	  
+</style>
+ 
+<body>
+
+   
+	
+
+
+ 
+
+ 
+
+<br>
+<br>
+
+
+
+<!-- Migrants -->
+
+		<!-- Migrants' key figures -->
+		<div class="section">
+
+		
+		
+			<div class="container">
+		
+			    <div style="margin-top:7px;position:absolute"><img style="width: 85px" src="http://www.ethiopiaprosperous.com/wp-content/uploads/2016/06/A-Iom.png" ></div> 
+			
+			    
+				<h1 style=" border-top: solid 0px rgba(18,73,146,0.5); margin:0 0 20 0; color:rgba(18,73,146,1)"  class="text-center title" id="portfolio"><font>Maritime incidents in Libya</font></h1>	
+			    <div  style=" border-bottom: solid 1px rgba(18,73,146,0.5);text-align:center;color:rgba(18,73,146,1);font-size:25px">Migrants Rescued in 2018: <span id="arrivals" style="font-size:30px;color:#2764ad;font-weight: bold">0</span></div>
+				<div  style="margin-top:10px;z-index:100;text-align:center;color:black;font-size:15px"><span style="font-size:15px;color:#2764ad;weight:500"></span> Last updated : March 2018 </div>
+				<br></br>	
+				<div style="border: solid 0px #ccc; height:500px;" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					
+					
+				
+					<iframe width="100%" height="100%"  src="http://localhost:8080/iom/world_spreadsheet.html" frameborder="0" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></iframe>
+						
+					
+				</div>
+				<div style="height:500px;border: solid 0px #ccc;background-color: #f2f2f2;margin-bottom:50px"" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				
+					<div  >
+					<div  id="locations" style="height:60%"></div>
+					</div>
+					
+					<div >
+					<div  id="pyramid" style="height:40%"></div>
+					</div>	
+					
+				</div>
+				
+			
+			
+					<div>			
+					<iframe width="100%" height="100%"  src="https://kkadabon.carto.com/builder/af220332-d0e4-47f0-bc17-9ecf69b30926/embed" frameborder="0" scrolling="no"></iframe>
+					</div>
+			
+			
+			</div>
+		</div>
+		
+		
+	
+</body>
+  
+  <!-- highcharts + animated figures -->
+
+	<script src="js/SAR.js" ></script>
+
+	
+	<script>
+	//Line-chart | section : 
+
+Highcharts.chart('line_1', {
+	exporting: { enabled: false },
+	
+	credits: {enabled: false},
+    
+    chart: {
+        type: 'spline',
+		backgroundColor:'transparent' 
+    },
+    title: {
+        text: 'Migrant population : Timeline '
+    },
+    subtitle: {
+        text: ''
+    },
+   
+ annotations: [{
+	 
+	    labelOptions: {
+            backgroundColor: 'rgba(255,255,255,0.5)',
+            verticalAlign: 'bottom',
+            
+        },
+	 
+	 
+        labels: [{
+            point: { x: 155, y: 45 },
+            text: ''
+        }]
+    }],
+
+
+
+   xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: { // don't display the dummy year
+            month: '%b',
+            year: '%b'
+        },
+        title: {
+            text: 'Date'
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'No. of people'
+        },
+        min: 0
+    },
+    tooltip: {
+        headerFormat: '<b>{series.name}</b><br>',
+        pointFormat: '{point.x:%b}: {point.y:.0f} People'
+    },
+
+	
+	 labelOptions: {
+            shape: 'connector',
+            align: 'right',
+            justify: false,
+            crop: true,
+            style: {
+                fontSize: '0.8em',
+                textOutline: '1px white'
+            }
+        },
+	
+	
+	
+	
+    plotOptions: {
+           areaspline: {
+            fillOpacity: 0.7
+        }
+    },
+series: [{
+        name: '2017', 
+        // Define the data points. All series have a dummy year
+        // of 1970/71 in order to be compared on the same x axis. Note
+        // that in JavaScript,  months start at 0 for January,  1 for February etc.
+        data: [
+  
+
+[Date.UTC(2017, 0, 01), 386223],
+[Date.UTC(2017, 01, 28), 386223],
+[Date.UTC(2017, 02, 20), 351382],
+[Date.UTC(2017, 03, 29), 393652],
+[Date.UTC(2017, 04, 28), 390198],
+[Date.UTC(2017, 05, 30), 400445],
+[Date.UTC(2017, 06, 30), 400445],
+[Date.UTC(2017, 07, 30), 416556],
+[Date.UTC(2017, 08, 30), 423394],
+[Date.UTC(2017, 09, 30), 432574],
+[Date.UTC(2017, 10, 30), 621706],
+[Date.UTC(2017, 11, 30), 621706]	
+        
+        ]
+    },  {
+        name: '2018', 
+        data: [
+
+[Date.UTC(2018, 0, 01), 704142],
+[Date.UTC(2018, 01, 25),704142],
+/*[Date.UTC(2018, 02, 26), null],
+[Date.UTC(2018, 03, 16), null],
+[Date.UTC(2018, 04, 30), null],
+[Date.UTC(2018, 05, 30), null],
+[Date.UTC(2018, 06, 30), null],
+[Date.UTC(2018, 07, 30), null],
+[Date.UTC(2018, 08, 30), null],
+[Date.UTC(2018, 09, 30), null],
+[Date.UTC(2018, 10, 30), null],
+[Date.UTC(2018, 11, 30), null]*/		
+
+            
+        ],
+color: 'rgba(255, 80, 80,0.8)',
+lineWidth: 3
+    }]
+	
+
+
+});
+</script>
+</html>
