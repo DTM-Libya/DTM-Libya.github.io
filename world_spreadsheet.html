@@ -1,0 +1,169 @@
+<html>
+
+<head>
+  
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+
+<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+	
+</head>
+
+<style>
+#map{border: solid 0px #ccc;height:100%;padding:0px;margin:0px}
+
+</style>
+  
+<body>
+
+<div id="map">
+    <div class="loading">
+        <i class="icon-spinner icon-spin icon-large"></i>
+        Loading data from Google Spreadsheets...
+    </div>
+	
+		
+</div>
+
+
+
+</body>
+<script>
+
+
+
+
+// Load the data from a Google Spreadsheet
+// https://docs.google.com/a/highsoft.com/spreadsheet/pub?hl=en_GB&hl=en_GB&key=0AoIaUO7wH1HwdFJHaFI4eUJDYlVna3k5TlpuXzZubHc&output=html
+Highcharts.data({
+
+    googleSpreadsheetKey: '1cWegy7SybpYGjXidmnfTC3qNOkRoQRABadwquqdjuLY',
+
+    // custom handler when the spreadsheet is parsed
+    parsed: function (columns) {
+
+        // Read the columns into the data array
+        var data = [];
+        $.each(columns[0], function (i, code) {
+            data.push({
+                code: code.toUpperCase(),
+                value: parseFloat(columns[2][i]),
+                name: columns[1][i]
+            });
+        });
+
+
+        // Initiate the chart
+        Highcharts.mapChart('map', {
+            exporting: { enabled: false },
+	        credits: {enabled: false},
+			
+			chart: {
+			
+			    backgroundColor:'transparent' ,
+                borderWidth: 0,
+				  events: {
+                    load: function () {
+                    this.mapZoom(0.5);
+                    }
+                }
+            },
+
+            colors: ['rgba(153,0,0,0)', 'rgba(153,0,0,0.2)', 'rgba(153,0,0,0.4)',
+                'rgba(153,0,0,0.5)', 'rgba(153,0,0,0.6)', 'rgba(153,0,0,0.8)', 'rgba(153,0,0,1)'],
+
+            title: {
+                text: 'Rescues at the sea by origin'
+            },
+
+			 subtitle: {
+            text: 'Data from January 2017'
+             },
+			
+            mapNavigation: {
+                enabled: true
+            },
+
+            legend: {
+                title: {
+                    text: 'Ppl. rescued by origin',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'grey'
+                    }
+                },
+                align: 'left',
+                verticalAlign: 'bottom',
+                floating: true,
+                layout: 'vertical',
+                valueDecimals: 0,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.2)',
+                symbolRadius: 0,
+                symbolHeight: 14
+            },
+
+		
+ /*tooltip: {
+            backgroundColor: 'none',
+            borderWidth: 0,
+            shadow: false,
+            useHTML: true,
+            padding: 0,
+            pointFormat: 
+                '</span></span> {point.name}<br>' +
+                '<span style="font-size:30px">{point.value}</span>',
+            positioner: function () {
+                return { x: 100, y: 50 };
+            }
+        },	*/
+			
+            colorAxis: {
+                dataClasses: [{
+                    to: 5
+                }, {
+                    from: 5,
+                    to: 50
+                }, {
+                    from: 50,
+                    to: 250
+                }, {
+                    from: 250,
+                    to: 500
+                }, {
+                    from: 500,
+                    to: 1000
+                }, {
+                    from: 1000,
+                    to: 1500
+                }, {
+                    from: 1500
+                }]
+            },
+
+            series: [{
+                data: data,
+                mapData: Highcharts.maps['custom/world'],
+                joinBy: ['iso-a2', 'code'],
+                animation: true,
+                name: 'Arrivals by country of origin',
+                states: {
+                    hover: {
+                        color: 'grey'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: 'People'
+                },
+                shadow: false
+            }]
+        });
+    },
+    error: function () {
+        $('#map').html('<div class="loading">' +
+            '<i class="icon-frown icon-large"></i> ' +
+            'Error loading data from Google Spreadsheets' +
+            '</div>');
+    }
+});
+</script> 
+  </html>
