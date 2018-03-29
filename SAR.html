@@ -78,13 +78,20 @@
 		
 			<div class="container">
 		
-			    <div style="margin-top:7px;position:absolute"><img style="width: 85px" src="http://www.ethiopiaprosperous.com/wp-content/uploads/2016/06/A-Iom.png" ></div> 
+				 
+				
+				
+			    <div style="margin-top:0px;position:absolute"><img style="width: 85px" src="http://www.ethiopiaprosperous.com/wp-content/uploads/2016/06/A-Iom.png" ></div> 
 			
 			    
-				<h1 style=" border-top: solid 0px rgba(18,73,146,0.5); margin:0 0 20 0; color:rgba(18,73,146,1)"  class="text-center title" id="portfolio"><font>Maritime incidents in Libya</font></h1>	
-			    <div  style=" border-bottom: solid 1px rgba(18,73,146,0.5);text-align:center;color:rgba(18,73,146,1);font-size:25px">Migrants Rescued in 2018: <span id="arrivals" style="font-size:30px;color:#2764ad;font-weight: bold">0</span></div>
-				<div  style="margin-top:10px;z-index:100;text-align:center;color:black;font-size:15px"><span style="font-size:15px;color:#2764ad;weight:500"></span> Last updated : March 2018 </div>
-				<br></br>	
+				<h1 style=" border-top: solid 0px rgba(18,73,146,0.5); margin:20 0 20 0; color:rgba(18,73,146,1)"  class="text-center title" id="portfolio"><font>Maritime incidents in Libya</font></h1>	
+			   
+				<div  style=" border-bottom: solid 1px rgba(18,73,146,0.5);margin-top:10px;z-index:100;text-align:center;color:black;font-size:15px"><span style="font-size:15px;color:#2764ad;weight:500"></span> Last updated : March 2018 </div>
+				<br></br>
+				 <div  style="text-align:center;color:black;font-size:22px">Migrants Rescued in 2018: <span id="arrivals" style="font-size:22px;color:#2764ad;font-weight: bold">0</span></div>
+				<div >
+					<div  id="line_1" style=""></div>
+				</div>				
 				<div style="border: solid 0px #ccc; height:500px;" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					
 					
@@ -133,11 +140,11 @@ Highcharts.chart('line_1', {
 	credits: {enabled: false},
     
     chart: {
-        type: 'spline',
+        type: 'areaspline',
 		backgroundColor:'transparent' 
     },
     title: {
-        text: 'Migrant population : Timeline '
+        text: ''
     },
     subtitle: {
         text: ''
@@ -158,7 +165,7 @@ Highcharts.chart('line_1', {
         }]
     }],
 
-
+ 
 
    xAxis: {
         type: 'datetime',
@@ -172,13 +179,13 @@ Highcharts.chart('line_1', {
     },
     yAxis: {
         title: {
-            text: 'No. of people'
+            text: 'No. of people rescued'
         },
         min: 0
     },
     tooltip: {
         headerFormat: '<b>{series.name}</b><br>',
-        pointFormat: '{point.x:%b}: {point.y:.0f} People'
+        pointFormat: '{point.x:%d-%b }: {point.y:.0f} People'
     },
 
 	
@@ -198,7 +205,7 @@ Highcharts.chart('line_1', {
 	
     plotOptions: {
            areaspline: {
-            fillOpacity: 0.7
+            fillOpacity: 0.2
         }
     },
 series: [{
@@ -208,42 +215,143 @@ series: [{
         // that in JavaScript,  months start at 0 for January,  1 for February etc.
         data: [
   
+[Date.UTC(2017, 00, 02) ,120],
+[Date.UTC(2017, 00, 04) ,65],
+[Date.UTC(2017, 00, 13) ,48],
+[Date.UTC(2017, 00, 21) ,1],
+[Date.UTC(2017, 00, 24) ,0],
+[Date.UTC(2017, 00, 28) ,465],
+[Date.UTC(2017, 01, 03) ,300],
+[Date.UTC(2017, 01, 04) ,179],
+[Date.UTC(2017, 01, 05) ,113],
+[Date.UTC(2017, 01, 18) ,125],
+[Date.UTC(2017, 01, 19) ,1],
+[Date.UTC(2017, 01, 20) ,0],
+[Date.UTC(2017, 01, 22) ,152],
+[Date.UTC(2017, 01, 23) ,82],
+[Date.UTC(2017, 02, 02) ,333],
+[Date.UTC(2017, 02, 02) ,110],
+[Date.UTC(2017, 02, 09) ,3],
+[Date.UTC(2017, 02, 12) ,1],
+[Date.UTC(2017, 02, 19) ,215],
+[Date.UTC(2017, 02, 20) ,552],
+[Date.UTC(2017, 02, 21) ,54],
+[Date.UTC(2017, 02, 28) ,225],
+[Date.UTC(2017, 03, 02) ,153],
+[Date.UTC(2017, 03, 06) ,138],
+[Date.UTC(2017, 03, 13) ,51],
+[Date.UTC(2017, 03, 14) ,101],
+[Date.UTC(2017, 04, 04) ,137],
+[Date.UTC(2017, 04, 06) ,278],
+[Date.UTC(2017, 04, 07) ,146],
+[Date.UTC(2017, 04, 10) ,497],
+[Date.UTC(2017, 04, 18) ,463],
+[Date.UTC(2017, 04, 20) ,102],
+[Date.UTC(2017, 04, 22) ,2],
+[Date.UTC(2017, 04, 23) ,326],
+[Date.UTC(2017, 04, 24) ,87],
+[Date.UTC(2017, 04, 26) ,1332],
+[Date.UTC(2017, 04, 27) ,404],
+[Date.UTC(2017, 05, 05) ,110],
+[Date.UTC(2017, 05, 05) ,0],
+[Date.UTC(2017, 05, 09) ,380],
+[Date.UTC(2017, 05, 10) ,438],
+[Date.UTC(2017, 05, 11) ,0],
+[Date.UTC(2017, 05, 13) ,0],
+[Date.UTC(2017, 05, 16) ,775],
+[Date.UTC(2017, 05, 18) ,157],
+[Date.UTC(2017, 05, 21) ,0],
+[Date.UTC(2017, 05, 23) ,115],
+[Date.UTC(2017, 05, 24) ,1],
+[Date.UTC(2017, 05, 26) ,135],
+[Date.UTC(2017, 05, 27) ,148],
+[Date.UTC(2017, 05, 28) ,174],
+[Date.UTC(2017, 06, 03) ,4],
+[Date.UTC(2017, 06, 08) ,65],
+[Date.UTC(2017, 06, 11) ,0],
+[Date.UTC(2017, 06, 13) ,391],
+[Date.UTC(2017, 06, 20) ,0],
+[Date.UTC(2017, 06, 24) ,133],
+[Date.UTC(2017, 06, 30) ,48],
+[Date.UTC(2017, 07, 03) ,120],
+[Date.UTC(2017, 07, 04) ,501],
+[Date.UTC(2017, 07, 05) ,239],
+[Date.UTC(2017, 07, 06) ,249],
+[Date.UTC(2017, 07, 07) ,155],
+[Date.UTC(2017, 07, 09) ,143],
+[Date.UTC(2017, 07, 10) ,101],
+[Date.UTC(2017, 07, 16) ,107],
+[Date.UTC(2017, 07, 21) ,102],
+[Date.UTC(2017, 07, 27) ,0],
+[Date.UTC(2017, 07, 28) ,134],
+[Date.UTC(2017, 07, 29) ,272],
+[Date.UTC(2017, 07, 30) ,283],
+[Date.UTC(2017, 08, 11) ,0],
+[Date.UTC(2017, 08, 12) ,248],
+[Date.UTC(2017, 08, 13) ,136],
+[Date.UTC(2017, 08, 15) ,153],
+[Date.UTC(2017, 08, 16) ,2031],
+[Date.UTC(2017, 08, 20) ,40],
+[Date.UTC(2017, 08, 30) ,226],
+[Date.UTC(2017, 09, 03) ,52],
+[Date.UTC(2017, 09, 11) ,172],
+[Date.UTC(2017, 09, 13) ,0],
+[Date.UTC(2017, 09, 18) ,258],
+[Date.UTC(2017, 09, 19) ,0],
+[Date.UTC(2017, 09, 22) ,0],
+[Date.UTC(2017, 09, 27) ,228],
+[Date.UTC(2017, 09, 31) ,299],
+[Date.UTC(2017, 10, 05) ,151],
+[Date.UTC(2017, 10, 07) ,47],
+[Date.UTC(2017, 10, 12) ,0],
+[Date.UTC(2017, 10, 16) ,0],
+[Date.UTC(2017, 10, 23) ,250],
+[Date.UTC(2017, 10, 24) ,607],
+[Date.UTC(2017, 10, 25) ,154],
+[Date.UTC(2017, 10, 28) ,124],
+[Date.UTC(2017, 11, 08) ,48],
+[Date.UTC(2017, 11, 09) ,161],
+[Date.UTC(2017, 11, 13) ,116],
+[Date.UTC(2017, 11, 14) ,168],
+[Date.UTC(2017, 11, 15) ,128],
+[Date.UTC(2017, 11, 16) ,262],
+[Date.UTC(2017, 11, 22) ,0],
 
-[Date.UTC(2017, 0, 01), 386223],
-[Date.UTC(2017, 01, 28), 386223],
-[Date.UTC(2017, 02, 20), 351382],
-[Date.UTC(2017, 03, 29), 393652],
-[Date.UTC(2017, 04, 28), 390198],
-[Date.UTC(2017, 05, 30), 400445],
-[Date.UTC(2017, 06, 30), 400445],
-[Date.UTC(2017, 07, 30), 416556],
-[Date.UTC(2017, 08, 30), 423394],
-[Date.UTC(2017, 09, 30), 432574],
-[Date.UTC(2017, 10, 30), 621706],
-[Date.UTC(2017, 11, 30), 621706]	
         
-        ]
+        ],
+		lineWidth: 1
     },  {
         name: '2018', 
         data: [
-
-[Date.UTC(2018, 0, 01), 704142],
-[Date.UTC(2018, 01, 25),704142],
-/*[Date.UTC(2018, 02, 26), null],
-[Date.UTC(2018, 03, 16), null],
-[Date.UTC(2018, 04, 30), null],
-[Date.UTC(2018, 05, 30), null],
-[Date.UTC(2018, 06, 30), null],
-[Date.UTC(2018, 07, 30), null],
-[Date.UTC(2018, 08, 30), null],
-[Date.UTC(2018, 09, 30), null],
-[Date.UTC(2018, 10, 30), null],
-[Date.UTC(2018, 11, 30), null]*/		
+[Date.UTC(2017, 00, 07) ,270],
+[Date.UTC(2017, 00, 08) ,135],
+[Date.UTC(2017, 00, 09) ,384],
+[Date.UTC(2017, 00, 15) ,352],
+[Date.UTC(2017, 00, 16) ,123],
+[Date.UTC(2017, 00, 17) ,233],
+[Date.UTC(2017, 00, 20) ,1],
+[Date.UTC(2017, 00, 27) ,86],
+[Date.UTC(2017, 00, 29) ,121],
+[Date.UTC(2017, 00, 31) ,341],
+[Date.UTC(2017, 01, 01) ,23],
+[Date.UTC(2017, 01, 09) ,0],
+[Date.UTC(2017, 01, 15) ,0],
+[Date.UTC(2017, 01, 16) ,0],
+[Date.UTC(2017, 01, 19) ,252],
+[Date.UTC(2017, 01, 28) ,100],
+[Date.UTC(2017, 02, 02) ,200],
+[Date.UTC(2017, 02, 10) ,342],
+[Date.UTC(2017, 02, 12) ,21],
+[Date.UTC(2017, 02, 13) ,98],
+[Date.UTC(2017, 02, 14) ,122],
+[Date.UTC(2017, 02, 15) ,97],
+[Date.UTC(2017, 02, 16) ,98],
+		
 
             
         ],
-color: 'rgba(255, 80, 80,0.8)',
-lineWidth: 3
+color: '#f28f80',
+lineWidth: 2
     }]
 	
 
