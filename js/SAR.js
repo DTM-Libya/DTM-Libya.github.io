@@ -212,8 +212,9 @@ Highcharts.chart('pyramid', {
         data: [-17577, -838]
     }, {
         name: 'Female',
-        data: [2442, 111]
-    }]
+        data: [2442, 111],
+    color: '#f28f80',
+	}]
 });
 
 //colunn chart, nationalities
