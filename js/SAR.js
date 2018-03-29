@@ -40,7 +40,7 @@ exporting: { enabled: false },
 		backgroundColor:'transparent' ,
     },
     title: {
-        text: "Ranking by origins"
+        text: "Ranking by origins : Top 10 "
     },
     subtitle: {
         text: "Data from Jan. 2017"
@@ -144,7 +144,9 @@ exporting: { enabled: false },
         },
 		
 		
-			]
+			],
+			
+			color:'#728fc7'
 		
     }]
 });
@@ -210,7 +212,7 @@ Highcharts.chart('pyramid', {
     series: [{
         name: 'Male',
         data: [-17577, -838],
-		 color: '#5583a8',
+		 color: '#728fc7',
     
 	
 	}, {
