@@ -209,8 +209,11 @@ Highcharts.chart('pyramid', {
 
     series: [{
         name: 'Male',
-        data: [-17577, -838]
-    }, {
+        data: [-17577, -838],
+		 color: '#5583a8',
+    
+	
+	}, {
         name: 'Female',
         data: [2442, 111],
     color: '#f28f80',
