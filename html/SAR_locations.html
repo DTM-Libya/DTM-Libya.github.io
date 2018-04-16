@@ -1,0 +1,276 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+	<script src='https://cartodb-libs.global.ssl.fastly.net/torque.full.js'></script>
+	<link rel='stylesheet' id='ls-google-fonts-css' href='https://fonts.googleapis.com/css?family=Lato:100,300,regular,700,900%7COpen+Sans:300%7CIndie+Flower:regular%7COswald:300,regular,700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+  
+  
+</head>  
+  <style>
+    html{width:100%; height:100%;padding:0px;margin:0px}
+    body {
+	margin:0px;
+    font-family: "Lato",sans-serif;
+    font-size: 17px;
+    font-weight: 300;}
+	
+	#map { width: 100%; height:100%; background: black;}
+   
+    
+	 .cartodb-timeslider{ display: none!important; }    
+        
+	 
+	
+		  
+	 .leaflet-container .leaflet-control-attribution{
+      color: grey; -> change color of text
+      background-color: transparent;
+
+    }
+    .leaflet-container .leaflet-control-attribution a{
+      color: grey; -> change the color of the hyperlinks
+      
+    }
+ 	
+
+	/* Hide attribution control, beware with data license!!*/
+.leaflet-control-attribution,
+div#cartodb-gmaps-attribution {
+  display: none;
+}	
+ 
+@media screen and (max-width: 501px) {
+  .symbol{ display: none; }   /* hide it elsewhere */
+} 
+
+.landing {z-index:1000; position:absolute;top:50px;color:white;text-align:center;width:100%}
+
+@media screen and (max-width: 501px) {
+  .landing{top:0px;margin:15px;}   /* hide it elsewhere */
+} 
+
+
+
+.titles {font-size:24px;font-weight:bold;text-align:center;opacity:1;text-shadow: 2px 2px 3px black;}
+
+
+
+.disclaimer {font-size:17px;opacity:1; margin-top:0px;text-align:center}
+@media screen and (max-width: 501px) {
+  .disclaimer{font-size:20px}   /* hide it elsewhere */
+} 
+
+a.start{
+			 text-align:center;
+			 border: 1px solid white;
+			 opacity:1;
+	     	text-decoration: none;
+			 background:transparent;
+		     text-shadow:none;
+			 padding:5px 50px 5px 50px;
+			
+			 color:white
+			}
+	a.start:hover{
+			 
+			 border: 2px solid #ff704d;
+			 opacity:1;
+			
+		     text-shadow:none;
+			
+			 color:#ff704d;
+			}
+
+    
+      li.time {
+        
+        top:-5px;
+        border:none!important;
+        z-index:10;
+		
+      }
+	  
+
+
+      li.controls {
+        color:black;
+      margin-right:0px;
+      border:none!important;
+      }
+
+      li.time.p {
+        color:red;
+        margin-left:0px;
+	
+      }
+
+ .cartodb-legend {	
+		
+		width: 150px;
+		height: auto;
+		position: absolute;
+		bottom: 0px !important;
+		right: 100px;
+		opacity:0.7
+		 } 
+
+      #map .cartodb-legend-stack { position: absolute; left: 20px;  width: 150px; top:20px; background: rgba(58,58,48,0.0); padding: 0px; z-index: 99; bottom: auto;}
+  </style>
+  
+
+  
+
+
+
+
+
+<body onload="init()">
+  
+
+   
+	 <div id='map'></div>
+	 
+	 
+	 <script>
+	 
+	   function main() {
+
+      var map = new L.Map('map', { 
+	  scrollWheelZoom: false,
+	  attributionControl: false,
+      center: [33.247465, 12.712619],
+      width: 500,
+	  zoom:9,
+	  zoomControl:false
+    });
+	L.control.zoom({
+     position:'topright'
+	}).addTo(map);
+
+	var polygons = {};
+
+	
+	
+	
+	 L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',{
+      attribution: '<a href="http://migrantreport.org/category/maps/">Map creasted by Migrant Report.'
+    }).addTo(map);
+	//http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
+	//http://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}
+	//http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png
+     //http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
+     //http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png  
+
+ //ANIMATION_TORQUE(1)//
+	cartodb.createLayer(map, {
+          type: "torque",
+         order: 2,
+		  cartodb_logo: false,
+		  
+          options: {
+		  
+		    time_slider:false,
+            query: "SELECT * FROM sar_dis where cartodb_id = '150' or cartodb_id = '178'",
+            table_name: "sar_dis",
+            user_name: "pablo-cartodb",
+            tile_style: 'Map { -torque-frame-count:64; -torque-animation-duration:2; -torque-time-attribute:"date"; -torque-aggregation-function:"count(cartodb_id)"; -torque-resolution:16; -torque-data-aggregation:linear; }  #sar_dis{   comp-op: lighter;   marker-fill-opacity: 0.9;   marker-line-color: #FFF;   marker-line-width: 0;   marker-line-opacity: 0.9;   marker-type: ellipse;   marker-width: 5;   marker-fill: #D6301D; } #sar_dis[frame-offset=1] {  marker-width:10;  marker-fill-opacity:0.45; }'  
+			
+			}
+	    }).done(function(layer) {
+          map.addLayer(layer);
+        });
+
+	//END ANIMATION_TORQUE//
+	
+	//ANIMATION_TORQUE(1)//
+	cartodb.createLayer(map, {
+          type: "cartodb",
+         order: 2,
+		  cartodb_logo: false,
+		  
+          options: {
+		  
+		    time_slider:false,
+            query: "SELECT * FROM sar_dis where cartodb_id = '150' ",
+            table_name: "sar_dis",
+            user_name: "pablo-cartodb",
+            tile_style: '#sar_dis{   marker-fill-opacity: 0;   marker-line-color: #FFF;   marker-line-width: 1;   marker-line-opacity: 1;   marker-placement: point;   marker-type: ellipse;   marker-width: 10;   marker-fill: #FF6600;   marker-allow-overlap: true; }  #sar_dis::labels {    text-name: [date] + "LATEST INCIDENT: "+" Embarkation: " + [embarkation]+" Disembarkation: " + [disembarkation_point]+" Date : 20-03-2018";   text-face-name: "DejaVu Sans Book";   text-size: 10;   text-label-position-tolerance: 10;   text-fill: #D6301D;    text-halo-radius: 0; text-dx: 10;  text-dy: -30;   text-allow-overlap: true;   text-placement: point;   text-placement-type: simple;    text-wrap-width: 140;   text-wrap-before: true; }'  
+			
+			}
+
+	
+			
+			
+	    }).done(function(layer) {
+          map.addLayer(layer);
+        });
+
+	//END ANIMATION_TORQUE//
+ //hightlight//
+	   cartodb.createLayer(map, 'https://pablo-cartodb.carto.com/api/v2/viz/c01612b4-157d-4d72-9be3-cab28216b241/viz.json', {cartodb_logo: false,legend:false,order: 6,})
+         .addTo(map)
+                
+		
+		.on('error', function() {
+            console.log("some error occurred");
+          });
+ //end hightlight//  
+  
+	
+	
+
+
+ 
+	
+
+}  		  
+
+
+window.onload = main; 
+
+	 
+	/* 
+
+      function main() {
+        
+        cartodb.createVis('map', 'https://pablo-cartodb.carto.com/api/v2/viz/c01612b4-157d-4d72-9be3-cab28216b241/viz.json', { time_slider: false });
+      }
+      window.onload = main;
+  
+	
+ /*
+https://migrantreport.carto.com/api/v2/viz/627dcff7-c706-4b20-99d3-204979841df3/viz.json
+	 cartodb.createLayer(map, {
+	  user_name: 'migrantreport',
+	 
+      type: 'cartodb',  
+	  order: 1,
+	  cartodb_logo: false,
+	sublayers: [{
+    sql: "SELECT * FROM mimu_rakhine_villages",
+    cartocss: ' #mimu_rakhine_villages{   marker-fill-opacity: 0.9;   marker-line-color: #FFF;   marker-line-width: 0.5;   marker-line-opacity: 1;   marker-placement: point;   marker-type: ellipse;   marker-width: 1;   marker-fill: #D6301D;   marker-allow-overlap: true; }  #mimu_rakhine_villages::labels {   text-name: [village];   text-face-name: "DejaVu Sans Book";   text-size: 10;   text-label-position-tolerance: 10;   text-fill: #000;   text-halo-fill: #FFF;   text-halo-radius: 1;   text-dy: -5;   text-allow-overlap: false;   text-placement: point;   text-placement-type: simple; } 	'}]
+		})
+		
+	
+
+	   .addTo(map)
+        .on('done', function (layer){
+   
+      });
+
+*/
+</script>
+
+
+	
+</div>
+  
+  </body>
+  
+		
+</html>
